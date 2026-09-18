@@ -1,0 +1,93 @@
+type Slot = "am" | "pm" | "full" | "off";
+
+const SLOT_LABEL: Record<Slot, string> = { am: "오전", pm: "오후", full: "종일", off: "휴진" };
+const SLOT_CLASS: Record<Slot, string> = {
+  am: "slot-am",
+  pm: "slot-pm",
+  full: "slot-full",
+  off: "slot-off border border-slate-200",
+};
+
+const DAYS = ["월", "화", "수", "목", "금", "토"];
+
+const DOCTOR_SCHEDULE: { name: string; slots: Slot[]; highlight: number }[] = [
+  { name: "이서준 원장", slots: ["full", "am", "full", "off", "full", "am"], highlight: 0 },
+  { name: "박수민 원장", slots: ["am", "full", "off", "full", "pm", "off"], highlight: 1 },
+  { name: "정하윤 원장", slots: ["full", "pm", "full", "full", "off", "am"], highlight: 2 },
+  { name: "김도현 원장", slots: ["off", "full", "am", "full", "full", "off"], highlight: 3 },
+  { name: "최유진 원장", slots: ["pm", "off", "full", "am", "full", "am"], highlight: 4 },
+];
+
+export default function Schedule() {
+  return (
+    <section id="schedule" className="max-w-6xl mx-auto px-4 md:px-8 py-24 md:py-28">
+      <div className="mb-12 md:mb-14 grid md:grid-cols-12 gap-6 items-end">
+        <div className="md:col-span-7">
+          <p className="section-eyebrow">이번 주 진료</p>
+          <h2 className="headline-tight text-3xl md:text-5xl font-light text-brand-text">
+            원장별 진료 요일을
+            <br />
+            <span className="font-semibold">한눈에</span>.
+          </h2>
+        </div>
+        <p className="md:col-span-5 body-relaxed text-brand-text-sub">
+          이번 주 새 예약이 열린 시간대는{" "}
+          <span className="inline-block w-2 h-2 rounded-full bg-brand-accent align-middle mx-1"></span>
+          표시로 안내드립니다.
+        </p>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-4 mb-6 text-xs text-brand-text-sub">
+        <span className="flex items-center gap-2">
+          <span className="w-4 h-4 rounded slot-am"></span> 오전
+        </span>
+        <span className="flex items-center gap-2">
+          <span className="w-4 h-4 rounded slot-pm"></span> 오후
+        </span>
+        <span className="flex items-center gap-2">
+          <span className="w-4 h-4 rounded border border-slate-200"></span> 휴진
+        </span>
+        <span className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-brand-accent"></span> 새 예약 가능
+        </span>
+      </div>
+
+      <div className="bg-brand-surface rounded-2xl p-4 md:p-6 overflow-x-auto">
+        <table className="w-full min-w-[640px] border-collapse text-sm">
+          <thead>
+            <tr className="text-brand-text-sub">
+              <th className="text-left font-medium py-3 pr-4 w-32">원장</th>
+              {DAYS.map((day) => (
+                <th key={day} className="font-medium py-3 px-2">
+                  {day}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="align-middle">
+            {DOCTOR_SCHEDULE.map((doctor) => (
+              <tr key={doctor.name}>
+                <td className="py-2 pr-4 font-medium text-brand-primary-dark">{doctor.name}</td>
+                {doctor.slots.map((slot, i) => (
+                  <td key={i} className="p-1">
+                    <div
+                      className={`${SLOT_CLASS[slot]} ${
+                        i === doctor.highlight && slot !== "off" ? "slot-highlight" : ""
+                      } rounded-lg h-11 flex items-center justify-center text-xs`}
+                    >
+                      {SLOT_LABEL[slot]}
+                    </div>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p className="mt-4 text-xs text-brand-text-muted">
+        점심시간 13:00–14:00. 진료 시간은 사정에 따라 변경될 수 있으며, 방문 전 예약을
+        권장드립니다.
+      </p>
+    </section>
+  );
+}
