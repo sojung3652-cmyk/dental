@@ -27,7 +27,10 @@ export default function Schedule() {
           <span className="w-4 h-4 rounded slot-pm"></span> 오후
         </span>
         <span className="flex items-center gap-2">
-          <span className="w-4 h-4 rounded border border-slate-200"></span> 휴진
+          <span className="w-4 h-4 rounded slot-full"></span> 종일
+        </span>
+        <span className="flex items-center gap-2">
+          <span className="w-4 h-4 rounded slot-off"></span> 휴진
         </span>
         <span className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-brand-accent"></span> 새 예약 가능
@@ -50,17 +53,26 @@ export default function Schedule() {
             {DOCTOR_SCHEDULE.map((doctor) => (
               <tr key={doctor.name}>
                 <td className="py-2 pr-4 font-medium text-brand-primary-dark">{doctor.name}</td>
-                {doctor.slots.map((slot, i) => (
-                  <td key={i} className="p-1">
-                    <div
-                      className={`${SLOT_CLASS[slot]} ${
-                        i === doctor.highlight && slot !== "off" ? "slot-highlight" : ""
-                      } rounded-lg h-11 flex items-center justify-center text-xs`}
-                    >
-                      {SLOT_LABEL[slot]}
-                    </div>
-                  </td>
-                ))}
+                {doctor.slots.map((slot, i) => {
+                  const dayLabel =
+                    slot === "off"
+                      ? `${doctor.name} · ${SCHEDULE_DAYS[i]}요일 휴진`
+                      : `${doctor.name} · ${SCHEDULE_DAYS[i]}요일 ${SLOT_LABEL[slot]} 진료`;
+                  return (
+                    <td key={i} className="p-1">
+                      <div
+                        role="img"
+                        aria-label={dayLabel}
+                        title={dayLabel}
+                        className={`${SLOT_CLASS[slot]} ${
+                          i === doctor.highlight && slot !== "off" ? "slot-highlight" : ""
+                        } rounded-lg h-11 flex items-center justify-center text-xs`}
+                      >
+                        {SLOT_LABEL[slot]}
+                      </div>
+                    </td>
+                  );
+                })}
               </tr>
             ))}
           </tbody>

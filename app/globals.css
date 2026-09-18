@@ -84,14 +84,15 @@ body {
   opacity: 0.35;
 }
 
-/* Schedule cells */
+/* Schedule cells — 4-tier slate intensity ramp: darker = more time worked
+   that day (오전 light -> 오후 medium -> 종일 dark -> 휴진 empty). */
 .slot-am {
   background: #e2e8f0;
   color: #334155;
 }
 .slot-pm {
-  background: #334155;
-  color: #f8fafc;
+  background: #94a3b8;
+  color: #ffffff;
 }
 .slot-full {
   background: #334155;
@@ -99,6 +100,7 @@ body {
 }
 .slot-off {
   background: transparent;
+  border: 1px solid #e2e8f0;
   color: #94a3b8;
 }
 .slot-highlight {

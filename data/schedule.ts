@@ -6,7 +6,7 @@ export const SLOT_CLASS: Record<Slot, string> = {
   am: "slot-am",
   pm: "slot-pm",
   full: "slot-full",
-  off: "slot-off border border-slate-200",
+  off: "slot-off",
 };
 
 export const SCHEDULE_DAYS = ["월", "화", "수", "목", "금", "토"];
