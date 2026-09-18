@@ -19,10 +19,10 @@ export default function Services() {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
-        {SERVICES.map(({ icon: Icon, title, blurb }) => (
+        {SERVICES.map(({ slug, icon: Icon, title, blurb }) => (
           <a
-            key={title}
-            href="#reservation"
+            key={slug}
+            href={`/reservation?service=${slug}`}
             className="group bg-brand-surface hover:bg-brand-sub-surface rounded-2xl p-6 md:p-7 transition-colors"
           >
             <div className="w-11 h-11 rounded-full bg-brand-sub-surface group-hover:bg-white flex items-center justify-center mb-6 transition-colors">

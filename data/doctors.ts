@@ -7,6 +7,7 @@ export const DOCTOR_GRADIENTS = [
 ] as const;
 
 export const DOCTORS: {
+  slug: string;
   gradient: string;
   title: string;
   accent?: boolean;
@@ -15,6 +16,7 @@ export const DOCTORS: {
   blurb: string;
 }[] = [
   {
+    slug: "lee",
     gradient: "p1",
     title: "대표원장",
     accent: true,
@@ -23,6 +25,7 @@ export const DOCTORS: {
     blurb: "정밀한 진단으로 부담이 적은 임플란트를 계획합니다.",
   },
   {
+    slug: "park",
     gradient: "p2",
     title: "진료원장",
     name: "박수민 원장",
@@ -30,6 +33,7 @@ export const DOCTORS: {
     blurb: "라이프스타일에 맞춘 교정 방식을 함께 찾습니다.",
   },
   {
+    slug: "jung",
     gradient: "p3",
     title: "진료원장",
     name: "정하윤 원장",
@@ -37,6 +41,7 @@ export const DOCTORS: {
     blurb: "아이도, 부모님도 편안하게 다녀가시길 바랍니다.",
   },
   {
+    slug: "kim",
     gradient: "p4",
     title: "진료원장",
     name: "김도현 원장",
@@ -44,6 +49,7 @@ export const DOCTORS: {
     blurb: "어려운 위치의 사랑니도 안전하게 발치합니다.",
   },
   {
+    slug: "choi",
     gradient: "p5",
     title: "진료원장",
     name: "최유진 원장",

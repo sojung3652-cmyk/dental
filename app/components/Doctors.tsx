@@ -53,6 +53,12 @@ export default function Doctors() {
               <h3 className="text-lg font-semibold text-brand-text">{doctor.name}</h3>
               <p className="text-sm text-brand-primary mt-1">{doctor.specialty}</p>
               <p className="body-relaxed text-sm text-brand-text-sub mt-3">{doctor.blurb}</p>
+              <a
+                href={`/reservation?doctor=${doctor.slug}`}
+                className="inline-block mt-4 text-sm text-brand-primary-dark hover:text-brand-text underline underline-offset-2"
+              >
+                이 원장으로 예약
+              </a>
             </article>
           ))}
 
