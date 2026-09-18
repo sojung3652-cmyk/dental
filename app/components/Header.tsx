@@ -1,16 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { CLINIC } from "@/data/clinic";
-
-const NAV_LINKS = [
-  { href: "#philosophy", label: "저희의 마음" },
-  { href: "#doctors", label: "의료진" },
-  { href: "#services", label: "진료 안내" },
-  { href: "#schedule", label: "진료 시간" },
-  { href: "#location", label: "오시는 길" },
-];
+import { NAV_ITEMS } from "@/data/nav";
+import FloatingIcons from "./FloatingIcons";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -27,23 +21,52 @@ export default function Header() {
               {CLINIC.nameEn}
             </span>
           </a>
+
           <nav className="hidden md:flex items-center gap-8 text-sm text-brand-text-sub">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="nav-link hover:text-brand-primary-dark"
-              >
-                {link.label}
-              </a>
-            ))}
+            {NAV_ITEMS.map((item) =>
+              item.dropdown ? (
+                <div key={item.label} className="relative group nav-link py-2">
+                  <button
+                    type="button"
+                    className="flex items-center gap-1 hover:text-brand-primary-dark transition-colors"
+                  >
+                    {item.label}
+                    <ChevronDown
+                      size={14}
+                      strokeWidth={1.8}
+                      className="transition-transform group-hover:rotate-180"
+                    />
+                  </button>
+                  <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-2xl shadow-lg border border-slate-100 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+                    {item.dropdown.map((sub) => (
+                      <a
+                        key={sub.label}
+                        href={sub.href}
+                        className="block px-4 py-2.5 text-sm text-brand-text-sub hover:bg-brand-sub-surface hover:text-brand-primary-dark transition-colors"
+                      >
+                        {sub.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="nav-link py-2 hover:text-brand-primary-dark transition-colors"
+                >
+                  {item.label}
+                </a>
+              )
+            )}
             <a
-              href="#reservation"
+              href="/reservation"
               className="bg-brand-primary-dark hover:bg-brand-text text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors"
             >
               예약하기
             </a>
           </nav>
+
           <button
             aria-label="메뉴 열기"
             onClick={() => setOpen(true)}
@@ -54,11 +77,13 @@ export default function Header() {
         </div>
       </header>
 
+      <FloatingIcons />
+
       <div
         id="mobile-menu"
         className={`fixed inset-0 z-50 bg-brand-bg md:hidden flex flex-col ${open ? "open" : ""}`}
       >
-        <div className="h-16 flex items-center justify-between px-4 border-b border-slate-200/60">
+        <div className="h-16 flex items-center justify-between px-4 border-b border-slate-200/60 shrink-0">
           <span className="text-lg font-semibold text-brand-primary-dark">{CLINIC.nameKo}</span>
           <button
             aria-label="메뉴 닫기"
@@ -68,16 +93,48 @@ export default function Header() {
             <X size={22} strokeWidth={1.8} />
           </button>
         </div>
-        <nav className="flex-1 flex flex-col justify-center gap-2 px-6 text-2xl font-medium text-brand-primary-dark">
-          {NAV_LINKS.map((link) => (
-            <a key={link.href} href={link.href} onClick={() => setOpen(false)} className="py-3">
-              {link.label}
-            </a>
-          ))}
+
+        <nav className="flex-1 overflow-y-auto px-6 py-4">
+          {NAV_ITEMS.map((item) =>
+            item.dropdown ? (
+              <details key={item.label} className="border-b border-slate-100 group/acc">
+                <summary className="flex items-center justify-between py-4 cursor-pointer list-none text-xl font-medium text-brand-primary-dark">
+                  {item.label}
+                  <ChevronDown
+                    size={20}
+                    strokeWidth={1.8}
+                    className="transition-transform group-open/acc:rotate-180"
+                  />
+                </summary>
+                <div className="pb-4 pl-2 space-y-1">
+                  {item.dropdown.map((sub) => (
+                    <a
+                      key={sub.label}
+                      href={sub.href}
+                      onClick={() => setOpen(false)}
+                      className="block py-2 text-base text-brand-text-sub"
+                    >
+                      {sub.label}
+                    </a>
+                  ))}
+                </div>
+              </details>
+            ) : (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className="block py-4 text-xl font-medium text-brand-primary-dark border-b border-slate-100"
+              >
+                {item.label}
+              </a>
+            )
+          )}
         </nav>
-        <div className="p-6 space-y-3 border-t border-slate-200/60">
+
+        <div className="p-6 space-y-3 border-t border-slate-200/60 shrink-0">
           <a
-            href="#reservation"
+            href="/reservation"
             onClick={() => setOpen(false)}
             className="block bg-brand-primary-dark text-white text-center py-4 rounded-lg font-medium"
           >

@@ -51,7 +51,7 @@ export default function StepDetails({
 
   return (
     <div>
-      <p className="signature text-xl text-brand-accent mb-2 text-center">마지막 한 단계만</p>
+      <p className="text-sm font-medium text-brand-accent mb-2 text-center">마지막 한 단계만</p>
       <h1 className="headline-tight text-3xl md:text-4xl font-light text-brand-text text-center mb-12">
         거의 다 <span className="font-semibold">왔어요</span>
       </h1>

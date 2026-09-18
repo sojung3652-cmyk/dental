@@ -73,7 +73,7 @@ export default function StepSchedule({
 
   return (
     <div>
-      <p className="signature text-xl text-brand-accent mb-2 text-center">편하신 시간으로</p>
+      <p className="text-sm font-medium text-brand-accent mb-2 text-center">편하신 시간으로</p>
       <h1 className="headline-tight text-3xl md:text-4xl font-light text-brand-text text-center mb-12">
         언제, 어느 <span className="font-semibold">원장님과 함께할까요</span>?
       </h1>

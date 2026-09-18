@@ -38,7 +38,7 @@ export default function StepConfirmation({
         </div>
       </div>
 
-      <p className="signature text-2xl text-brand-accent mb-3">편안한 마음으로 오세요</p>
+      <p className="text-sm font-medium text-brand-accent mb-3">편안한 마음으로 오세요</p>
       <h1 className="display-tight text-3xl md:text-4xl font-light text-brand-text mb-8">
         예약이 <span className="font-semibold">확정되었어요</span>
       </h1>

@@ -7,7 +7,7 @@ export default function Doctors() {
       <div className="max-w-6xl mx-auto px-4 md:px-8">
         <div className="mb-14 md:mb-16 grid md:grid-cols-12 gap-6 items-end">
           <div className="md:col-span-6">
-            <p className="section-eyebrow">저희 의료진</p>
+            <p className="section-eyebrow">의료진 소개</p>
             <h2 className="headline-tight text-3xl md:text-5xl font-light text-brand-text">
               다섯 명의 원장,
               <br />

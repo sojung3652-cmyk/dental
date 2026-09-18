@@ -6,9 +6,7 @@ export default function Concerns() {
       <div className="mb-14 md:mb-16 max-w-2xl">
         <p className="section-eyebrow">망설이고 계신가요?</p>
         <h2 className="headline-tight text-3xl md:text-5xl font-light text-brand-text">
-          혹시 <span className="font-semibold">이런 걱정</span>,
-          <br />
-          하고 계셨다면요.
+          <span className="font-semibold">산뜻치과의 약속</span>
         </h2>
       </div>
 
@@ -20,7 +18,7 @@ export default function Concerns() {
             open={concern.open}
           >
             <summary className="cursor-pointer p-8 md:p-10 list-none flex items-start gap-6">
-              <span className="signature text-3xl md:text-4xl text-brand-accent shrink-0 mt-1">
+              <span className="text-sm font-medium tracking-wide text-brand-accent shrink-0 mt-1.5">
                 {concern.numeral}
               </span>
               <div className="flex-1">

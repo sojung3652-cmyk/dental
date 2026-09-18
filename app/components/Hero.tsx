@@ -6,20 +6,19 @@ export default function Hero() {
     <section id="top" className="max-w-6xl mx-auto px-4 md:px-8 pt-16 md:pt-32 pb-20 md:pb-28">
       <div className="grid md:grid-cols-12 gap-8 md:gap-16 items-end">
         <div className="md:col-span-8">
-          <p className="signature text-2xl text-brand-accent mb-4">잘 다녀오면,</p>
+          <p className="text-sm font-medium text-brand-primary mb-4">환자 중심 진료</p>
           <h1 className="display-tight text-5xl md:text-7xl font-light text-brand-text">
-            <span className="font-semibold">다시 오고 싶어지는</span>
+            <span className="font-semibold">믿을 수 있는 진료,</span>
             <br />
-            치과이고 싶습니다.
+            편안한 치과.
           </h1>
           <p className="body-relaxed mt-8 text-lg md:text-xl text-brand-text-sub max-w-xl">
-            한 번의 방문이 다음 방문의 이유가 되도록,{" "}
-            <span className="brand-emph text-brand-primary-dark">{CLINIC.nameKo}</span>는 진료
-            흐름과 안내를 하나씩 정돈합니다.
+            {CLINIC.nameKo}는 진단부터 치료까지 담당 원장이 직접 책임지는 정직한 진료를
+            약속드립니다.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <a
-              href="#reservation"
+              href="/reservation"
               className="inline-flex items-center gap-2 bg-brand-primary-dark hover:bg-brand-text text-white px-7 py-3.5 rounded-lg font-medium transition-colors"
             >
               예약하기

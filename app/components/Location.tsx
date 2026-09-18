@@ -148,7 +148,7 @@ export default function Location() {
           href="/location"
           className="group flex items-center justify-center gap-2 w-full bg-slate-100 hover:bg-slate-200 rounded-2xl py-4 text-center text-brand-primary-dark font-medium transition-colors"
         >
-          5층 오시는 길 상세보기 →
+          5층 오시는 길 상세보기
           <MousePointerClick size={18} strokeWidth={1.8} className="text-brand-text-muted" />
         </a>
       </div>

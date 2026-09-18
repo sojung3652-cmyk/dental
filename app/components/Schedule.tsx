@@ -5,7 +5,7 @@ export default function Schedule() {
     <section id="schedule" className="max-w-6xl mx-auto px-4 md:px-8 py-24 md:py-28">
       <div className="mb-12 md:mb-14 grid md:grid-cols-12 gap-6 items-end">
         <div className="md:col-span-7">
-          <p className="section-eyebrow">이번 주 진료</p>
+          <p className="section-eyebrow">진료 시간표</p>
           <h2 className="headline-tight text-3xl md:text-5xl font-light text-brand-text">
             원장별 진료 요일을
             <br />

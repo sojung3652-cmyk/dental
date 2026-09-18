@@ -7,13 +7,15 @@ export default function ReservationCta() {
         <div className="absolute -top-16 -right-16 w-56 h-56 rounded-full bg-brand-accent/20"></div>
         <div className="absolute -bottom-20 -left-16 w-56 h-56 rounded-full bg-brand-accent/10"></div>
         <div className="relative max-w-2xl">
-          <p className="signature text-2xl text-brand-accent mb-3">편안한 마음으로,</p>
+          <p className="text-sm font-medium text-brand-accent mb-3">예약 안내</p>
           <h2 className="display-tight text-4xl md:text-5xl font-light text-white mb-6">
-            오늘 <span className="font-semibold">예약하기</span>.
+            지금 온라인으로
+            <br />
+            <span className="font-semibold">예약하세요.</span>
           </h2>
           <p className="body-relaxed text-slate-300 mb-10 md:text-lg">
-            정기 검진, 사랑니, 스케일링, 임플란트, 교정 어느 것이든 하나의 예약 흐름에서 원장과
-            시간을 정하실 수 있습니다.
+            정기 검진, 사랑니, 스케일링, 임플란트, 교정 등 필요한 진료를 온라인으로 예약하실 수
+            있습니다.
           </p>
           <div className="flex flex-wrap gap-4">
             <a

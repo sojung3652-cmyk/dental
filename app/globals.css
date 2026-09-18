@@ -48,24 +48,24 @@ body {
   font-weight: 600;
 }
 
-/* Nav underline */
+/* Nav underline — centered 32px hairline, shown on hover/open */
 .nav-link {
   position: relative;
 }
 .nav-link::after {
   content: "";
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -6px;
+  left: 50%;
+  bottom: -8px;
+  width: 32px;
   height: 1px;
   background: var(--color-brand-accent);
-  transform: scaleX(0);
-  transform-origin: left;
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
   transition: transform 200ms ease-out;
 }
 .nav-link:hover::after {
-  transform: scaleX(1);
+  transform: translateX(-50%) scaleX(1);
 }
 
 /* Big display quote marks */

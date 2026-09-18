@@ -3,7 +3,7 @@ import { SERVICES } from "@/data/services";
 export default function StepService({ onSelect }: { onSelect: (slug: string) => void }) {
   return (
     <div>
-      <p className="signature text-xl text-brand-accent mb-2 text-center">천천히 골라주세요</p>
+      <p className="text-sm font-medium text-brand-accent mb-2 text-center">천천히 골라주세요</p>
       <h1 className="headline-tight text-3xl md:text-4xl font-light text-brand-text text-center mb-12">
         어떤 진료가 <span className="font-semibold">필요하신가요</span>?
       </h1>

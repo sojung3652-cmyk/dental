@@ -6,7 +6,7 @@ export default function Philosophy() {
       <div className="max-w-6xl mx-auto px-4 md:px-8">
         <div className="grid md:grid-cols-12 gap-10 md:gap-16">
           <div className="md:col-span-5">
-            <p className="section-eyebrow">저희의 마음</p>
+            <p className="section-eyebrow">인사말</p>
             <div className="quote-block pl-4">
               <p className="display-tight text-3xl md:text-4xl font-light text-brand-text">
                 이분이 내 <span className="font-semibold">가족</span>이라면
