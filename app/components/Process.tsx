@@ -20,7 +20,7 @@ const STEPS = [
 
 export default function Process() {
   return (
-    <section className="bg-brand-primary-dark py-24 md:py-32 text-white">
+    <section className="bg-brand-primary-dark py-24 md:py-28 text-white">
       <div className="max-w-6xl mx-auto px-4 md:px-8">
         <div className="mb-14 md:mb-16 max-w-2xl">
           <p className="text-sm text-brand-accent mb-3 flex items-center gap-2">

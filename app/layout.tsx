@@ -9,7 +9,7 @@ const nanumPenScript = Nanum_Pen_Script({
 });
 
 export const metadata: Metadata = {
-  title: "산뜻치과 · Santteut Dental",
+  title: "산뜻치과 Santteut Dental",
   description: "다시 오고 싶어지는 치과, 산뜻치과. (컨셉 디자인 데모)",
 };
 
