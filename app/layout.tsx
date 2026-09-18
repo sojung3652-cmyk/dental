@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Nanum_Pen_Script } from "next/font/google";
+import { CLINIC } from "@/data/clinic";
 import "./globals.css";
 
 const nanumPenScript = Nanum_Pen_Script({
@@ -9,8 +10,8 @@ const nanumPenScript = Nanum_Pen_Script({
 });
 
 export const metadata: Metadata = {
-  title: "산뜻치과 Santteut Dental",
-  description: "다시 오고 싶어지는 치과, 산뜻치과. (컨셉 디자인 데모)",
+  title: `${CLINIC.nameKo} ${CLINIC.nameEn}`,
+  description: `다시 오고 싶어지는 치과, ${CLINIC.nameKo}. (컨셉 디자인 데모)`,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -1,4 +1,5 @@
 import { Phone } from "lucide-react";
+import { CLINIC } from "@/data/clinic";
 
 export default function Hero() {
   return (
@@ -13,8 +14,8 @@ export default function Hero() {
           </h1>
           <p className="body-relaxed mt-8 text-lg md:text-xl text-brand-text-sub max-w-xl">
             한 번의 방문이 다음 방문의 이유가 되도록,{" "}
-            <span className="brand-emph text-brand-primary-dark">산뜻치과</span>는 진료 흐름과
-            안내를 하나씩 정돈합니다.
+            <span className="brand-emph text-brand-primary-dark">{CLINIC.nameKo}</span>는 진료
+            흐름과 안내를 하나씩 정돈합니다.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <a
@@ -24,7 +25,7 @@ export default function Hero() {
               예약하기
             </a>
             <a
-              href="tel:000-0000-0000"
+              href={`tel:${CLINIC.phone}`}
               className="inline-flex items-center gap-2 text-brand-primary-dark hover:text-brand-text px-4 py-3.5 font-medium"
             >
               <Phone size={18} strokeWidth={1.8} />
@@ -35,8 +36,12 @@ export default function Hero() {
         <div className="md:col-span-4 md:text-right">
           <div className="inline-block text-left border-l-2 border-brand-accent pl-5">
             <p className="text-sm text-brand-text-sub mb-1">이번 주 진료</p>
-            <p className="text-2xl font-semibold text-brand-primary-dark">평일 09:30–19:00</p>
-            <p className="text-sm text-brand-text-sub mt-1">토요일 09:30–14:00, 일요일 휴진</p>
+            <p className="text-2xl font-semibold text-brand-primary-dark">
+              {CLINIC.hours.weekday}
+            </p>
+            <p className="text-sm text-brand-text-sub mt-1">
+              {CLINIC.hours.saturday}, {CLINIC.hours.closed}
+            </p>
           </div>
         </div>
       </div>

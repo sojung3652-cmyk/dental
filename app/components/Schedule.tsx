@@ -1,22 +1,4 @@
-type Slot = "am" | "pm" | "full" | "off";
-
-const SLOT_LABEL: Record<Slot, string> = { am: "오전", pm: "오후", full: "종일", off: "휴진" };
-const SLOT_CLASS: Record<Slot, string> = {
-  am: "slot-am",
-  pm: "slot-pm",
-  full: "slot-full",
-  off: "slot-off border border-slate-200",
-};
-
-const DAYS = ["월", "화", "수", "목", "금", "토"];
-
-const DOCTOR_SCHEDULE: { name: string; slots: Slot[]; highlight: number }[] = [
-  { name: "이서준 원장", slots: ["full", "am", "full", "off", "full", "am"], highlight: 0 },
-  { name: "박수민 원장", slots: ["am", "full", "off", "full", "pm", "off"], highlight: 1 },
-  { name: "정하윤 원장", slots: ["full", "pm", "full", "full", "off", "am"], highlight: 2 },
-  { name: "김도현 원장", slots: ["off", "full", "am", "full", "full", "off"], highlight: 3 },
-  { name: "최유진 원장", slots: ["pm", "off", "full", "am", "full", "am"], highlight: 4 },
-];
+import { DOCTOR_SCHEDULE, SCHEDULE_DAYS, SLOT_CLASS, SLOT_LABEL } from "@/data/schedule";
 
 export default function Schedule() {
   return (
@@ -57,7 +39,7 @@ export default function Schedule() {
           <thead>
             <tr className="text-brand-text-sub">
               <th className="text-left font-medium py-3 pr-4 w-32">원장</th>
-              {DAYS.map((day) => (
+              {SCHEDULE_DAYS.map((day) => (
                 <th key={day} className="font-medium py-3 px-2">
                   {day}
                 </th>

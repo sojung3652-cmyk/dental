@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Menu, X, Phone } from "lucide-react";
+import { CLINIC } from "@/data/clinic";
 
 const NAV_LINKS = [
   { href: "#philosophy", label: "저희의 마음" },
@@ -20,10 +21,10 @@ export default function Header() {
         <div className="max-w-6xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
           <a href="#top" className="flex items-baseline gap-2">
             <span className="text-lg font-semibold tracking-tight text-brand-primary-dark">
-              산뜻치과
+              {CLINIC.nameKo}
             </span>
             <span className="hidden sm:inline text-xs text-brand-text-muted">
-              Santteut Dental
+              {CLINIC.nameEn}
             </span>
           </a>
           <nav className="hidden md:flex items-center gap-8 text-sm text-brand-text-sub">
@@ -58,7 +59,7 @@ export default function Header() {
         className={`fixed inset-0 z-50 bg-brand-bg md:hidden flex flex-col ${open ? "open" : ""}`}
       >
         <div className="h-16 flex items-center justify-between px-4 border-b border-slate-200/60">
-          <span className="text-lg font-semibold text-brand-primary-dark">산뜻치과</span>
+          <span className="text-lg font-semibold text-brand-primary-dark">{CLINIC.nameKo}</span>
           <button
             aria-label="메뉴 닫기"
             onClick={() => setOpen(false)}
@@ -83,7 +84,7 @@ export default function Header() {
             예약하기
           </a>
           <a
-            href="tel:000-0000-0000"
+            href={`tel:${CLINIC.phone}`}
             className="flex items-center justify-center gap-2 border border-brand-primary text-brand-primary-dark text-center py-4 rounded-lg font-medium"
           >
             <Phone size={18} strokeWidth={1.8} />

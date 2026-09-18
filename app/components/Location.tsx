@@ -1,3 +1,5 @@
+import { CLINIC } from "@/data/clinic";
+
 export default function Location() {
   return (
     <section id="location" className="bg-brand-sub-surface py-24 md:py-28">
@@ -6,7 +8,7 @@ export default function Location() {
           <div className="md:col-span-7">
             <p className="section-eyebrow">오시는 길</p>
             <h2 className="headline-tight text-3xl md:text-5xl font-light text-brand-text">
-              산뜻역 도보 5분,
+              {CLINIC.station} 도보 5분,
               <br />
               <span className="font-semibold">주차장 완비</span>.
             </h2>
@@ -29,30 +31,32 @@ export default function Location() {
               <circle cx="215" cy="135" r="20" fill="#D48A8A" opacity="0.25" />
             </svg>
             <div className="absolute bottom-4 left-4 bg-brand-surface/95 backdrop-blur rounded-lg px-4 py-2 text-sm font-medium text-brand-primary-dark shadow-sm">
-              산뜻치과 · 5층
+              {CLINIC.nameKo} · 5층
             </div>
           </div>
 
           <div className="md:col-span-5 space-y-6 bg-brand-surface rounded-2xl p-8">
             <div>
               <p className="text-xs text-brand-text-muted mb-1">주소</p>
-              <p className="text-brand-text">산뜻시 편안구 산뜻대로 100</p>
-              <p className="text-brand-text">산뜻빌딩 5층</p>
+              <p className="text-brand-text">{CLINIC.address.line1}</p>
+              <p className="text-brand-text">{CLINIC.address.line2}</p>
             </div>
             <div>
               <p className="text-xs text-brand-text-muted mb-1">전화</p>
               <a
-                href="tel:000-0000-0000"
+                href={`tel:${CLINIC.phone}`}
                 className="text-2xl font-semibold text-brand-primary-dark hover:text-brand-text transition-colors"
               >
-                000-0000-0000
+                {CLINIC.phone}
               </a>
             </div>
             <div>
               <p className="text-xs text-brand-text-muted mb-1">진료 시간</p>
-              <p className="text-brand-text">평일 09:30–19:00</p>
-              <p className="text-brand-text">토요일 09:30–14:00</p>
-              <p className="text-brand-text-sub text-sm mt-1">점심 13:00–14:00, 일요일 휴진</p>
+              <p className="text-brand-text">{CLINIC.hours.weekday}</p>
+              <p className="text-brand-text">{CLINIC.hours.saturday}</p>
+              <p className="text-brand-text-sub text-sm mt-1">
+                {CLINIC.hours.lunch}, {CLINIC.hours.closed}
+              </p>
             </div>
             <div>
               <p className="text-xs text-brand-text-muted mb-1">주차</p>

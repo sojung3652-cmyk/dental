@@ -19,14 +19,33 @@ piece. No real backend, people, addresses, or photos. Deploys to Netlify from Gi
   the `.signature` utility class for handwritten accent moments (hero eyebrow, section
   markers, the director's signature).
 
-## Getting Started
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000).
-
 ## Structure
 
-All sections live as components under `app/components/`, composed in `app/page.tsx`.
+- `app/page.tsx` composes the home page from section components in `app/components/`.
+- `data/*.ts` holds the fictional clinic content (clinic info, doctors, services,
+  schedule, process steps, concerns) — edit these, not the components, to change copy.
+- `app/reservation`, `app/doctors`, `app/pricing`, `app/privacy`, `app/terms` are
+  placeholder routes ("곧 만나요") for pages a real build would flesh out later.
+
+## Local development
+
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build + lint + typecheck
+```
+
+## Deploying to Netlify
+
+`netlify.toml` is already configured: build command `npm run build`, publish directory
+`.next`, and the `@netlify/plugin-nextjs` plugin (installed as a devDependency) handles
+App Router/SSR output on Netlify's platform. In the Netlify UI:
+
+1. "Import an existing project" → pick this repo's GitHub remote.
+2. Build settings are picked up from `netlify.toml` automatically — no manual
+   configuration needed.
+3. Deploy. Netlify's Next.js runtime installs `@netlify/plugin-nextjs` from
+   `package.json` if it isn't already present.
+
+No environment variables or backend services are required — this is a static/SSR
+concept site with no real data layer.

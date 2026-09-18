@@ -1,3 +1,5 @@
+import { CLINIC } from "@/data/clinic";
+
 export default function Philosophy() {
   return (
     <section id="philosophy" className="bg-brand-sub-surface py-24 md:py-28">
@@ -14,7 +16,7 @@ export default function Philosophy() {
             </div>
             <p className="body-relaxed mt-8 text-brand-text-sub max-w-md">
               매일 아침 저희가 스스로에게 던지는 질문입니다. 이 질문에서 시작하는 진료가{" "}
-              <span className="brand-emph text-brand-primary-dark">산뜻치과</span>의 방식입니다.
+              <span className="brand-emph text-brand-primary-dark">{CLINIC.nameKo}</span>의 방식입니다.
             </p>
           </div>
 
@@ -33,12 +35,14 @@ export default function Philosophy() {
               </svg>
               <div>
                 <p className="text-sm text-brand-text-sub">대표원장</p>
-                <p className="text-lg font-semibold text-brand-primary-dark">이서준</p>
+                <p className="text-lg font-semibold text-brand-primary-dark">{CLINIC.director}</p>
               </div>
             </div>
 
             <div className="body-relaxed text-brand-text space-y-4 text-[15px] md:text-base">
-              <p>안녕하세요. 산뜻치과 대표원장 이서준입니다.</p>
+              <p>
+                안녕하세요. {CLINIC.nameKo} 대표원장 {CLINIC.director}입니다.
+              </p>
               <p>
                 치과는 늘 조금 무서운 곳이었습니다. 어릴 적 저도 그랬고, 지금 진료 의자에 앉는
                 분들의 마음도 크게 다르지 않을 거라 생각합니다.
@@ -56,8 +60,8 @@ export default function Philosophy() {
             </div>
 
             <div className="mt-8 pt-6 border-t border-slate-200 flex items-end justify-between">
-              <p className="text-sm text-brand-text-sub">산뜻치과 대표원장</p>
-              <p className="signature text-3xl text-brand-primary-dark">이서준</p>
+              <p className="text-sm text-brand-text-sub">{CLINIC.nameKo} 대표원장</p>
+              <p className="signature text-3xl text-brand-primary-dark">{CLINIC.director}</p>
             </div>
           </div>
         </div>
