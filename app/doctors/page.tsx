@@ -23,7 +23,7 @@ export default function DoctorsPage() {
             </p>
           </div>
 
-          <DoctorGrid doctors={doctors} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" />
+          <DoctorGrid doctors={doctors} className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4" />
         </div>
       </main>
       <Footer />

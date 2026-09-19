@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { doctors } from "@/data/doctors";
 import DoctorGrid from "./DoctorGrid";
 
@@ -16,29 +15,21 @@ export default function Doctors() {
               <span className="font-semibold">각자의 전문 분야</span>로.
             </h2>
           </div>
-          <p className="md:col-span-6 body-relaxed text-brand-text-sub md:text-lg">
-            진료마다 담당 원장이 정해져 있어, 처음 뵙는 분부터 정기 방문하시는 분까지 같은
-            손길로 진료받으실 수 있습니다.
-          </p>
-        </div>
-
-        <DoctorGrid
-          doctors={doctors}
-          trailing={
+          <div className="md:col-span-6">
+            <p className="body-relaxed text-brand-text-sub md:text-lg">
+              진료마다 담당 원장이 정해져 있어, 처음 뵙는 분부터 정기 방문하시는 분까지 같은
+              손길로 진료받으실 수 있습니다.
+            </p>
             <Link
               href="/doctors"
-              className="rounded-2xl border border-dashed border-slate-300 hover:border-brand-primary hover:bg-brand-surface p-6 flex flex-col justify-center items-start transition-colors"
+              className="inline-block mt-4 text-sm text-brand-primary-dark hover:text-brand-text underline underline-offset-2"
             >
-              <span className="text-sm text-brand-text-sub mb-2">전체 프로필</span>
-              <span className="text-lg font-semibold text-brand-primary-dark">
-                의료진 자세히 보기
-              </span>
-              <span className="mt-6 text-brand-accent">
-                <ArrowRight size={28} strokeWidth={1.4} />
-              </span>
+              전체 프로필 보기
             </Link>
-          }
-        />
+          </div>
+        </div>
+
+        <DoctorGrid doctors={doctors} />
       </div>
     </section>
   );
