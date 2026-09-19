@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { SERVICES } from "@/data/services";
-import { DOCTORS } from "@/data/doctors";
+import { doctors } from "@/data/doctors";
 import { formatFullDate, formatTimeKo } from "@/data/reservation";
 
 const detailsSchema = z.object({
@@ -45,7 +45,7 @@ export default function StepDetails({
   });
 
   const service = SERVICES.find((s) => s.slug === serviceSlug);
-  const doctor = DOCTORS.find((d) => d.slug === doctorSlug);
+  const doctor = doctors.find((d) => d.slug === doctorSlug);
   const [datePart, time] = isoSlot.split("T");
   const slotDate = new Date(datePart);
 
@@ -153,7 +153,7 @@ export default function StepDetails({
           <div className="flex items-start justify-between gap-2">
             <div>
               <p className="text-xs text-brand-text-muted mb-0.5">원장</p>
-              <p className="text-sm font-medium text-brand-text">{doctor?.name}</p>
+              <p className="text-sm font-medium text-brand-text">{doctor?.name} 원장</p>
             </div>
             <button
               type="button"
