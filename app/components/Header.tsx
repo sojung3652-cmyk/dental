@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { CLINIC } from "@/data/clinic";
 import { NAV_ITEMS } from "@/data/nav";
@@ -13,13 +14,15 @@ export default function Header() {
     <>
       <header className="sticky top-0 z-40 bg-brand-bg/85 backdrop-blur border-b border-slate-200/60">
         <div className="max-w-6xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
-          <a href="#top" className="flex items-baseline gap-2">
-            <span className="text-lg font-semibold tracking-tight text-brand-primary-dark">
-              {CLINIC.nameKo}
-            </span>
-            <span className="hidden sm:inline text-xs text-brand-text-muted">
-              {CLINIC.nameEn}
-            </span>
+          <a href="#top" className="flex items-center">
+            <Image
+              src="/logo.svg"
+              alt={CLINIC.nameKo}
+              width={160}
+              height={45}
+              priority
+              className="h-10 w-auto"
+            />
           </a>
 
           <nav className="hidden md:flex items-center gap-8 text-sm text-brand-text-sub">
@@ -84,7 +87,7 @@ export default function Header() {
         className={`fixed inset-0 z-50 bg-brand-bg md:hidden flex flex-col ${open ? "open" : ""}`}
       >
         <div className="h-16 flex items-center justify-between px-4 border-b border-slate-200/60 shrink-0">
-          <span className="text-lg font-semibold text-brand-primary-dark">{CLINIC.nameKo}</span>
+          <Image src="/logo.svg" alt={CLINIC.nameKo} width={160} height={45} className="h-9 w-auto" />
           <button
             aria-label="메뉴 닫기"
             onClick={() => setOpen(false)}

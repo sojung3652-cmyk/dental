@@ -10,8 +10,11 @@ const nanumPenScript = Nanum_Pen_Script({
 });
 
 export const metadata: Metadata = {
-  title: `${CLINIC.nameKo} ${CLINIC.nameEn}`,
-  description: `다시 오고 싶어지는 치과, ${CLINIC.nameKo}. (컨셉 디자인 데모)`,
+  title: CLINIC.nameKo,
+  description: "믿을 수 있는 진료, 편안한 치과.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
