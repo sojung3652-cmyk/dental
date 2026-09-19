@@ -72,7 +72,7 @@ export default async function DoctorDetailPage({
                 </p>
                 <h1 className="text-2xl font-semibold text-brand-text">
                   {doctor.name}
-                  <span className="text-brand-text-sub font-normal"> 원장</span>
+                  <span className="text-brand-text-sub font-normal"> 원장님</span>
                 </h1>
                 <div className="flex gap-1.5 mt-3 flex-wrap">
                   {doctor.specialties.map((specialty) => (
@@ -89,7 +89,7 @@ export default async function DoctorDetailPage({
                   href={`/reservation?doctor=${doctor.slug}`}
                   className="inline-flex items-center justify-center w-full mt-8 bg-brand-primary-dark hover:bg-brand-text text-white px-7 py-3.5 rounded-lg font-medium transition-colors"
                 >
-                  이 원장으로 예약하기
+                  이 원장님으로 예약하기
                 </Link>
               </div>
             </div>

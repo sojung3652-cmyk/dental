@@ -153,7 +153,7 @@ export default function StepDetails({
           <div className="flex items-start justify-between gap-2">
             <div>
               <p className="text-xs text-brand-text-muted mb-0.5">원장</p>
-              <p className="text-sm font-medium text-brand-text">{doctor?.name} 원장</p>
+              <p className="text-sm font-medium text-brand-text">{doctor?.name} 원장님</p>
             </div>
             <button
               type="button"

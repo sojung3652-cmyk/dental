@@ -20,7 +20,7 @@ export default function DoctorCard({ doctor }: { doctor: Doctor }) {
       </p>
       <h3 className="text-lg font-semibold text-brand-text">
         {doctor.name}
-        <span className="text-brand-text-sub font-normal"> 원장</span>
+        <span className="text-brand-text-sub font-normal"> 원장님</span>
       </h3>
 
       <div className="flex gap-1.5 mt-2 flex-wrap">

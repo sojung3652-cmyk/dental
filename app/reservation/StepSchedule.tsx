@@ -91,7 +91,7 @@ export default function StepSchedule({
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
                     <span className="font-semibold text-brand-text text-sm truncate">
-                      {doctor.name} 원장
+                      {doctor.name} 원장님
                     </span>
                     {isRecommended && (
                       <span className="text-[11px] text-brand-accent border border-brand-accent/40 rounded-full px-1.5 py-0.5 shrink-0">
@@ -215,7 +215,7 @@ export default function StepSchedule({
       {selectedDoctor && (
         <div className="fixed md:static bottom-0 left-0 right-0 md:mt-8 bg-brand-primary-dark md:bg-brand-sub-surface text-white md:text-brand-text p-4 md:p-4 md:rounded-xl md:max-w-md md:mx-auto text-center z-20 shadow-lg md:shadow-none">
           <p className="text-sm">
-            {selectedDoctor.name} 원장 ·{" "}
+            {selectedDoctor.name} 원장님 ·{" "}
             {pendingSlot
               ? `${formatFullDate(pendingSlot.date)} ${formatTimeKo(pendingSlot.time)}`
               : "시간을 선택해주세요"}

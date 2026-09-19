@@ -54,7 +54,7 @@ export default function StepConfirmation({
         </div>
         <div className="flex justify-between text-sm">
           <span className="text-brand-text-muted">원장</span>
-          <span className="text-brand-text font-medium">{doctor?.name} 원장</span>
+          <span className="text-brand-text font-medium">{doctor?.name} 원장님</span>
         </div>
         <div className="flex justify-between text-sm">
           <span className="text-brand-text-muted">일시</span>
