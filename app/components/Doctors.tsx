@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { doctors } from "@/data/doctors";
-import DoctorCard from "./DoctorCard";
+import DoctorGrid from "./DoctorGrid";
 
 export default function Doctors() {
   return (
@@ -22,24 +22,23 @@ export default function Doctors() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {doctors.map((doctor) => (
-            <DoctorCard key={doctor.slug} doctor={doctor} />
-          ))}
-
-          <Link
-            href="/doctors"
-            className="rounded-2xl border border-dashed border-slate-300 hover:border-brand-primary hover:bg-brand-surface p-6 flex flex-col justify-center items-start transition-colors min-h-[400px]"
-          >
-            <span className="text-sm text-brand-text-sub mb-2">전체 프로필</span>
-            <span className="text-lg font-semibold text-brand-primary-dark">
-              의료진 자세히 보기
-            </span>
-            <span className="mt-6 text-brand-accent">
-              <ArrowRight size={28} strokeWidth={1.4} />
-            </span>
-          </Link>
-        </div>
+        <DoctorGrid
+          doctors={doctors}
+          trailing={
+            <Link
+              href="/doctors"
+              className="rounded-2xl border border-dashed border-slate-300 hover:border-brand-primary hover:bg-brand-surface p-6 flex flex-col justify-center items-start transition-colors"
+            >
+              <span className="text-sm text-brand-text-sub mb-2">전체 프로필</span>
+              <span className="text-lg font-semibold text-brand-primary-dark">
+                의료진 자세히 보기
+              </span>
+              <span className="mt-6 text-brand-accent">
+                <ArrowRight size={28} strokeWidth={1.4} />
+              </span>
+            </Link>
+          }
+        />
       </div>
     </section>
   );

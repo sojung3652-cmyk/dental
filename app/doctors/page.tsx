@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import DoctorCard from "../components/DoctorCard";
+import DoctorGrid from "../components/DoctorGrid";
 import { doctors } from "@/data/doctors";
 import { CLINIC } from "@/data/clinic";
 
@@ -23,11 +23,7 @@ export default function DoctorsPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {doctors.map((doctor) => (
-              <DoctorCard key={doctor.slug} doctor={doctor} />
-            ))}
-          </div>
+          <DoctorGrid doctors={doctors} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" />
         </div>
       </main>
       <Footer />
