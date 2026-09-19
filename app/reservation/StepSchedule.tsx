@@ -66,7 +66,7 @@ export default function StepSchedule({
     <div>
       <p className="text-sm font-medium text-brand-accent mb-2 text-center">편하신 시간으로</p>
       <h1 className="headline-tight text-3xl md:text-4xl font-light text-brand-text text-center mb-12">
-        언제, 어느 <span className="font-semibold">원장님과 함께할까요</span>?
+        언제, 어느 <span className="font-semibold">선생님과 함께할까요</span>?
       </h1>
 
       <div className="grid md:grid-cols-[280px_1fr] gap-8 items-start">
@@ -120,7 +120,7 @@ export default function StepSchedule({
           {!doctorSlug && (
             <div className="absolute inset-0 bg-brand-surface/80 backdrop-blur-[1px] rounded-2xl z-10 flex items-center justify-center text-center px-6">
               <p className="text-brand-text-sub text-sm">
-                왼쪽에서 원장님을 먼저 선택해주세요
+                왼쪽에서 선생님을 먼저 선택해주세요
               </p>
             </div>
           )}

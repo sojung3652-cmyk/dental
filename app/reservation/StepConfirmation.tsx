@@ -70,7 +70,7 @@ export default function StepConfirmation({
         )}
       </div>
 
-      <p className="body-relaxed text-brand-text-sub mb-10">{doctor?.name} 원장님이 기다리고 계세요.</p>
+      <p className="body-relaxed text-brand-text-sub mb-10">{doctor?.name} 선생님이 기다리고 계세요.</p>
 
       <div className="flex flex-col sm:flex-row gap-3 justify-center">
         <Link
