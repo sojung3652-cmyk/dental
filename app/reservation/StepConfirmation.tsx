@@ -3,7 +3,7 @@
 import { CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { SERVICES } from "@/data/services";
-import { DOCTORS } from "@/data/doctors";
+import { doctors } from "@/data/doctors";
 import { formatFullDate, formatTimeKo, maskPhone } from "@/data/reservation";
 
 export default function StepConfirmation({
@@ -20,7 +20,7 @@ export default function StepConfirmation({
   phone?: string;
 }) {
   const service = SERVICES.find((s) => s.slug === serviceSlug);
-  const doctor = DOCTORS.find((d) => d.slug === doctorSlug);
+  const doctor = doctors.find((d) => d.slug === doctorSlug);
   const [datePart, time] = isoSlot.split("T");
   const slotDate = new Date(datePart);
 
@@ -54,7 +54,7 @@ export default function StepConfirmation({
         </div>
         <div className="flex justify-between text-sm">
           <span className="text-brand-text-muted">원장</span>
-          <span className="text-brand-text font-medium">{doctor?.name}</span>
+          <span className="text-brand-text font-medium">{doctor?.name} 원장님</span>
         </div>
         <div className="flex justify-between text-sm">
           <span className="text-brand-text-muted">일시</span>
@@ -70,9 +70,7 @@ export default function StepConfirmation({
         )}
       </div>
 
-      <p className="body-relaxed text-brand-text-sub mb-10">
-        {doctor?.name.replace(" 원장", "")}{" "}원장님이 기다리고 계세요.
-      </p>
+      <p className="body-relaxed text-brand-text-sub mb-10">{doctor?.name} 선생님이 기다리고 계세요.</p>
 
       <div className="flex flex-col sm:flex-row gap-3 justify-center">
         <Link

@@ -1,6 +1,10 @@
 import { CLINIC } from "@/data/clinic";
+import { doctors } from "@/data/doctors";
+import DoctorAvatarButton from "./DoctorAvatarButton";
 
 export default function Philosophy() {
+  const director = doctors[0];
+
   return (
     <section id="philosophy" className="bg-brand-sub-surface py-24 md:py-28">
       <div className="max-w-6xl mx-auto px-4 md:px-8">
@@ -22,26 +26,16 @@ export default function Philosophy() {
 
           <div className="md:col-span-7 bg-brand-surface rounded-3xl p-8 md:p-12">
             <div className="flex items-center gap-4 mb-8">
-              <svg viewBox="0 0 80 80" className="w-16 h-16 rounded-full">
-                <defs>
-                  <linearGradient id="grad-dir" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stopColor="#CBD5E1" />
-                    <stop offset="1" stopColor="#94A3B8" />
-                  </linearGradient>
-                </defs>
-                <rect width="80" height="80" rx="40" fill="url(#grad-dir)" />
-                <circle cx="40" cy="33" r="14" fill="#F1F5F9" opacity="0.9" />
-                <ellipse cx="40" cy="70" rx="24" ry="14" fill="#F1F5F9" opacity="0.9" />
-              </svg>
+              <DoctorAvatarButton slug={director.slug} className="w-16 h-16" />
               <div>
-                <p className="text-sm text-brand-text-sub">대표원장</p>
-                <p className="text-lg font-semibold text-brand-primary-dark">{CLINIC.director}</p>
+                <p className="text-sm text-brand-text-sub">{director.title}</p>
+                <p className="text-lg font-semibold text-brand-primary-dark">{director.name}</p>
               </div>
             </div>
 
             <div className="body-relaxed text-brand-text space-y-4 text-[15px] md:text-base">
               <p>
-                안녕하세요. {CLINIC.nameKo} 대표원장 {CLINIC.director}입니다.
+                안녕하세요. {CLINIC.nameKo} {director.title} {director.name}입니다.
               </p>
               <p>
                 치과는 늘 조금 무서운 곳이었습니다. 어릴 적 저도 그랬고, 지금 진료 의자에 앉는
@@ -60,8 +54,10 @@ export default function Philosophy() {
             </div>
 
             <div className="mt-8 pt-6 border-t border-slate-200 flex items-end justify-between">
-              <p className="text-sm text-brand-text-sub">{CLINIC.nameKo} 대표원장</p>
-              <p className="signature text-3xl text-brand-primary-dark">{CLINIC.director}</p>
+              <p className="text-sm text-brand-text-sub">
+                {CLINIC.nameKo} {director.title}
+              </p>
+              <p className="signature text-3xl text-brand-primary-dark">{director.name}</p>
             </div>
           </div>
         </div>

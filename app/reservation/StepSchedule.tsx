@@ -2,7 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { DOCTORS, DOCTOR_GRADIENTS } from "@/data/doctors";
+import { doctors } from "@/data/doctors";
+import DoctorPortrait from "../components/DoctorPortrait";
 import {
   SERVICE_DOCTOR_MATCH,
   TIME_SLOTS,
@@ -15,16 +16,6 @@ import {
   toDateStr,
   weekDates,
 } from "@/data/reservation";
-
-function MiniPortrait({ gradientId }: { gradientId: string }) {
-  return (
-    <svg viewBox="0 0 40 40" className="w-10 h-10 rounded-full shrink-0">
-      <rect width="40" height="40" rx="20" fill={`url(#${gradientId})`} />
-      <circle cx="20" cy="16" r="7" fill="#F8FAFC" opacity="0.9" />
-      <ellipse cx="20" cy="38" rx="13" ry="9" fill="#F8FAFC" opacity="0.9" />
-    </svg>
-  );
-}
 
 export default function StepSchedule({
   serviceSlug,
@@ -62,7 +53,7 @@ export default function StepSchedule({
   const days = useMemo(() => weekDates(monday), [monday]);
 
   const recommended = serviceSlug ? SERVICE_DOCTOR_MATCH[serviceSlug] ?? [] : [];
-  const selectedDoctor = DOCTORS.find((d) => d.slug === doctorSlug);
+  const selectedDoctor = doctors.find((d) => d.slug === doctorSlug);
 
   function handleSlotClick(date: Date, time: string) {
     if (!doctorSlug) return;
@@ -75,17 +66,15 @@ export default function StepSchedule({
     <div>
       <p className="text-sm font-medium text-brand-accent mb-2 text-center">편하신 시간으로</p>
       <h1 className="headline-tight text-3xl md:text-4xl font-light text-brand-text text-center mb-12">
-        언제, 어느 <span className="font-semibold">원장님과 함께할까요</span>?
+        언제, 어느 <span className="font-semibold">선생님과 함께할까요</span>?
       </h1>
 
       <div className="grid md:grid-cols-[280px_1fr] gap-8 items-start">
         {/* Doctor picker */}
         <div className="space-y-2">
-          {DOCTORS.map((doctor) => {
+          {doctors.map((doctor) => {
             const active = doctor.slug === doctorSlug;
             const isRecommended = recommended.includes(doctor.slug);
-            const gradient = DOCTOR_GRADIENTS.find((g) => g.id === doctor.gradient)!;
-            const pills = doctor.specialty.split(" · ");
 
             return (
               <button
@@ -98,19 +87,11 @@ export default function StepSchedule({
                     : "border-slate-200 hover:bg-brand-sub-surface"
                 }`}
               >
-                <svg width="0" height="0" style={{ position: "absolute" }}>
-                  <defs>
-                    <linearGradient id={gradient.id} x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0" stopColor={gradient.from} />
-                      <stop offset="1" stopColor={gradient.to} stopOpacity={gradient.toOpacity} />
-                    </linearGradient>
-                  </defs>
-                </svg>
-                <MiniPortrait gradientId={gradient.id} />
+                <DoctorPortrait slug={doctor.slug} shape="circle" className="w-10 h-10 rounded-full shrink-0" />
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
                     <span className="font-semibold text-brand-text text-sm truncate">
-                      {doctor.name}
+                      {doctor.name} 원장님
                     </span>
                     {isRecommended && (
                       <span className="text-[11px] text-brand-accent border border-brand-accent/40 rounded-full px-1.5 py-0.5 shrink-0">
@@ -119,12 +100,12 @@ export default function StepSchedule({
                     )}
                   </div>
                   <div className="flex gap-1 mt-1 flex-wrap">
-                    {pills.map((pill) => (
+                    {doctor.specialties.map((specialty) => (
                       <span
-                        key={pill}
+                        key={specialty}
                         className="text-[11px] text-brand-text-sub bg-white border border-slate-200 rounded-full px-2 py-0.5"
                       >
-                        {pill}
+                        {specialty}
                       </span>
                     ))}
                   </div>
@@ -139,7 +120,7 @@ export default function StepSchedule({
           {!doctorSlug && (
             <div className="absolute inset-0 bg-brand-surface/80 backdrop-blur-[1px] rounded-2xl z-10 flex items-center justify-center text-center px-6">
               <p className="text-brand-text-sub text-sm">
-                왼쪽에서 원장님을 먼저 선택해주세요
+                왼쪽에서 선생님을 먼저 선택해주세요
               </p>
             </div>
           )}
@@ -234,7 +215,7 @@ export default function StepSchedule({
       {selectedDoctor && (
         <div className="fixed md:static bottom-0 left-0 right-0 md:mt-8 bg-brand-primary-dark md:bg-brand-sub-surface text-white md:text-brand-text p-4 md:p-4 md:rounded-xl md:max-w-md md:mx-auto text-center z-20 shadow-lg md:shadow-none">
           <p className="text-sm">
-            {selectedDoctor.name} ·{" "}
+            {selectedDoctor.name} 원장님 ·{" "}
             {pendingSlot
               ? `${formatFullDate(pendingSlot.date)} ${formatTimeKo(pendingSlot.time)}`
               : "시간을 선택해주세요"}
