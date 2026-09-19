@@ -1,6 +1,6 @@
 import { CLINIC } from "@/data/clinic";
 import { doctors } from "@/data/doctors";
-import DoctorPortrait from "./DoctorPortrait";
+import DoctorAvatarButton from "./DoctorAvatarButton";
 
 export default function Philosophy() {
   const director = doctors[0];
@@ -26,7 +26,7 @@ export default function Philosophy() {
 
           <div className="md:col-span-7 bg-brand-surface rounded-3xl p-8 md:p-12">
             <div className="flex items-center gap-4 mb-8">
-              <DoctorPortrait slug={director.slug} shape="circle" className="w-16 h-16 rounded-full" />
+              <DoctorAvatarButton slug={director.slug} className="w-16 h-16" />
               <div>
                 <p className="text-sm text-brand-text-sub">{director.title}</p>
                 <p className="text-lg font-semibold text-brand-primary-dark">{director.name}</p>

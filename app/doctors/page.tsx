@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import DoctorGrid from "../components/DoctorGrid";
+import DoctorsGrid from "../components/DoctorsGrid";
 import { doctors } from "@/data/doctors";
 import { CLINIC } from "@/data/clinic";
 
@@ -23,7 +23,7 @@ export default function DoctorsPage() {
             </p>
           </div>
 
-          <DoctorGrid doctors={doctors} className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4" />
+          <DoctorsGrid doctors={doctors} className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4" />
         </div>
       </main>
       <Footer />

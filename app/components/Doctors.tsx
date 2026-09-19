@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { doctors } from "@/data/doctors";
-import DoctorGrid from "./DoctorGrid";
+import DoctorsGrid from "./DoctorsGrid";
 
 export default function Doctors() {
   return (
@@ -29,7 +29,7 @@ export default function Doctors() {
           </div>
         </div>
 
-        <DoctorGrid doctors={doctors} />
+        <DoctorsGrid doctors={doctors} />
       </div>
     </section>
   );
