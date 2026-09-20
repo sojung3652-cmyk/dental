@@ -49,7 +49,7 @@ export default function Location() {
         </div>
 
         <div className="grid md:grid-cols-12 gap-6 mb-6">
-          <div className="md:col-span-7 rounded-2xl overflow-hidden bg-brand-surface aspect-[4/3] md:aspect-auto relative min-h-[360px]">
+          <div className="w-full min-w-0 md:col-span-7 rounded-2xl overflow-hidden bg-brand-surface aspect-[4/3] md:aspect-auto relative min-h-[360px]">
             <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" className="w-full h-full">
               <rect width="400" height="300" fill="#E2E8F0" />
               <path d="M0 150 L400 150" stroke="#F8FAFC" strokeWidth="24" />
