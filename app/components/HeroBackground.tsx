@@ -30,7 +30,7 @@ export default function HeroBackground() {
           key={photo.src}
           className="absolute inset-0 transition-opacity ease-in-out"
           style={{
-            opacity: idx === activeIndex ? 0.25 : 0,
+            opacity: idx === activeIndex ? 0.4 : 0,
             transitionDuration: `${FADE_DURATION}ms`,
           }}
         >
