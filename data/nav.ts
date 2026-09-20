@@ -8,7 +8,7 @@ export const NAV_ITEMS: NavItem[] = [
     dropdown: [
       { label: "인사말", href: "#philosophy" },
       { label: "의료진 소개", href: "#doctors" },
-      { label: "병원 둘러보기", href: "#" },
+      { label: "병원 둘러보기", href: "/#gallery" },
       { label: "오시는 길", href: "#location" },
     ],
   },

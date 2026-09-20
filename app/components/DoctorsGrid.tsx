@@ -15,6 +15,11 @@ function DoctorsGridInner({ doctors, className }: { doctors: Doctor[]; className
 
   const activeSlug = searchParams.get("doctor");
 
+  // Captured once at mount: if the page loaded with `?doctor=<slug>` already
+  // in the URL, that doctor's portrait is above the fold on first paint and
+  // should load with priority. Doctors opened later via click should not.
+  const [coldLoadSlug] = useState(activeSlug);
+
   const [renderedDoctor, setRenderedDoctor] = useState<Doctor | null>(
     () => doctors.find((d) => d.slug === activeSlug) ?? null
   );
@@ -73,7 +78,14 @@ function DoctorsGridInner({ doctors, className }: { doctors: Doctor[]; className
           />
         ))}
       </div>
-      {renderedDoctor && <DoctorModal doctor={renderedDoctor} closing={closing} onClose={closeModal} />}
+      {renderedDoctor && (
+        <DoctorModal
+          doctor={renderedDoctor}
+          closing={closing}
+          onClose={closeModal}
+          priority={renderedDoctor.slug === coldLoadSlug}
+        />
+      )}
     </>
   );
 }

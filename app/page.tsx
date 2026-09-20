@@ -5,6 +5,7 @@ import Concerns from "./components/Concerns";
 import Doctors from "./components/Doctors";
 import Services from "./components/Services";
 import Process from "./components/Process";
+import Gallery from "./components/Gallery";
 import Schedule from "./components/Schedule";
 import Location from "./components/Location";
 import ReservationCta from "./components/ReservationCta";
@@ -29,6 +30,7 @@ export default function Home() {
         <Doctors />
         <Services />
         <Process />
+        <Gallery />
         <Schedule />
         <Location />
         <ReservationCta />

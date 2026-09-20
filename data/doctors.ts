@@ -123,27 +123,3 @@ export const doctors: Doctor[] = [
     societies: ["대한보존치의학회 정회원", "한국심미치의학회 정회원"],
   },
 ];
-
-// Placeholder portrait gradients — no real photo assets exist yet, so
-// DoctorPortrait renders these instead of `image`. Swap in real photos by
-// pointing DoctorPortrait at `doctor.image` once assets are available.
-export const DOCTOR_GRADIENTS = [
-  { id: "p1", from: "#E2E8F0", to: "#CBD5E1", toOpacity: 1 },
-  { id: "p2", from: "#F1F5F9", to: "#D48A8A", toOpacity: 0.35 },
-  { id: "p3", from: "#CBD5E1", to: "#94A3B8", toOpacity: 1 },
-  { id: "p4", from: "#F1F5F9", to: "#CBD5E1", toOpacity: 1 },
-  { id: "p5", from: "#E2E8F0", to: "#D48A8A", toOpacity: 0.25 },
-] as const;
-
-const GRADIENT_ID_BY_SLUG: Record<string, (typeof DOCTOR_GRADIENTS)[number]["id"]> = {
-  lee: "p1",
-  park: "p2",
-  jung: "p3",
-  kim: "p4",
-  choi: "p5",
-};
-
-export function gradientForSlug(slug: string) {
-  const id = GRADIENT_ID_BY_SLUG[slug] ?? "p1";
-  return DOCTOR_GRADIENTS.find((g) => g.id === id)!;
-}

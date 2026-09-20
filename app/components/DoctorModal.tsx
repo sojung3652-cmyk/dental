@@ -29,10 +29,12 @@ export default function DoctorModal({
   doctor,
   closing,
   onClose,
+  priority = false,
 }: {
   doctor: Doctor;
   closing: boolean;
   onClose: () => void;
+  priority?: boolean;
 }) {
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const [entered, setEntered] = useState(false);
@@ -87,7 +89,12 @@ export default function DoctorModal({
           <div className="grid md:grid-cols-12 gap-8 md:gap-12">
             <div className="md:col-span-5">
               <div className="aspect-[4/5] rounded-2xl overflow-hidden max-h-[50vh] md:max-h-none mx-auto">
-                <DoctorPortrait slug={doctor.slug} className="w-full h-full" />
+                <DoctorPortrait
+                  slug={doctor.slug}
+                  className="w-full h-full"
+                  sizes="(max-width: 768px) 100vw, 40vw"
+                  priority={priority}
+                />
               </div>
             </div>
 
