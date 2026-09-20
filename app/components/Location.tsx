@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { MapPin, Train, Bus, ParkingSquare, MousePointerClick } from "lucide-react";
 import { CLINIC } from "@/data/clinic";
 import { TRANSIT } from "@/data/location";
@@ -50,19 +51,13 @@ export default function Location() {
 
         <div className="grid md:grid-cols-12 gap-6 mb-6">
           <div className="w-full min-w-0 md:col-span-7 rounded-2xl overflow-hidden bg-brand-surface aspect-[4/3] md:aspect-auto relative min-h-[360px]">
-            <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" className="w-full h-full">
-              <rect width="400" height="300" fill="#E2E8F0" />
-              <path d="M0 150 L400 150" stroke="#F8FAFC" strokeWidth="24" />
-              <path d="M200 0 L200 300" stroke="#F8FAFC" strokeWidth="18" />
-              <path d="M80 0 L120 300" stroke="#F8FAFC" strokeWidth="10" opacity="0.7" />
-              <path d="M300 0 L320 300" stroke="#F8FAFC" strokeWidth="10" opacity="0.7" />
-              <rect x="30" y="30" width="60" height="90" fill="#CBD5E1" opacity="0.5" />
-              <rect x="240" y="30" width="50" height="90" fill="#CBD5E1" opacity="0.5" />
-              <rect x="30" y="180" width="70" height="90" fill="#CBD5E1" opacity="0.5" />
-              <rect x="240" y="180" width="60" height="90" fill="#CBD5E1" opacity="0.5" />
-              <circle cx="215" cy="135" r="10" fill="#D48A8A" />
-              <circle cx="215" cy="135" r="20" fill="#D48A8A" opacity="0.25" />
-            </svg>
+            <Image
+              src="/images/clinic/map.jpg"
+              alt="산뜻치과 위치 지도 — 산뜻역 2호선, 편안역 4호선 인근"
+              fill
+              sizes="(max-width: 768px) 100vw, 60vw"
+              className="object-cover object-center"
+            />
             <div className="absolute bottom-4 left-4 bg-brand-surface/95 backdrop-blur rounded-lg px-4 py-2 text-sm font-medium text-brand-primary-dark shadow-sm">
               {CLINIC.nameKo} · 5층
             </div>
