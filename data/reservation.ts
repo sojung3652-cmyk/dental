@@ -1,4 +1,7 @@
 import { DOCTOR_SCHEDULE, type Slot as DaySlot } from "./schedule";
+import { slots as SLOT_FIXTURE } from "./slots";
+
+const SLOT_FIXTURE_MAP = new Map(SLOT_FIXTURE.map((s) => [`${s.doctorSlug}|${s.datetime}`, s.available]));
 
 export const TIME_SLOTS = [
   "09:30",
@@ -76,6 +79,10 @@ export function formatFullDate(d: Date): string {
   return `${d.getMonth() + 1}월 ${d.getDate()}일(${days[d.getDay()]})`;
 }
 
+export function formatMonthDay(d: Date): string {
+  return `${d.getMonth() + 1}월 ${d.getDate()}일`;
+}
+
 export function formatTimeKo(time: string): string {
   const [h, m] = time.split(":").map(Number);
   const period = h < 12 ? "오전" : "오후";
@@ -85,9 +92,11 @@ export function formatTimeKo(time: string): string {
 
 type SlotStatus = "available" | "unavailable" | "past";
 
-/** Weekly recurring pattern (am/pm/full/off) + a deterministic ~20% "booked"
- * scatter, seeded per doctor+date+time so the same URL always renders the
- * same fake availability. Past dates/times are also unavailable. */
+/** Reads from the data/slots.ts fixture (3 populated weeks) when available;
+ * outside that window, falls back to the weekly recurring pattern
+ * (am/pm/full/off) + a deterministic ~20% "booked" scatter, seeded per
+ * doctor+date+time so the same URL always renders the same fake
+ * availability. Past dates/times are always unavailable. */
 export function slotStatus(doctorSlug: string, date: Date, time: string): SlotStatus {
   const now = new Date();
   const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -111,6 +120,12 @@ export function slotStatus(doctorSlug: string, date: Date, time: string): SlotSt
     if (slotTime <= now) return "past";
   }
 
+  const fixtureKey = `${doctorSlug}|${toDateStr(date)}T${time}`;
+  const fixtureAvailable = SLOT_FIXTURE_MAP.get(fixtureKey);
+  if (fixtureAvailable !== undefined) {
+    return fixtureAvailable ? "available" : "unavailable";
+  }
+
   const bookedRoll = hashStr(`${doctorSlug}|${toDateStr(date)}|${time}`) % 5;
   if (bookedRoll === 0) return "unavailable";
 
@@ -124,6 +139,14 @@ export function generateReservationRef(): string {
     code += chars[Math.floor(Math.random() * chars.length)];
   }
   return `ST-${code}`;
+}
+
+/** Formats a phone number as the user types, e.g. "01012345678" -> "010-1234-5678". */
+export function formatPhoneInput(value: string): string {
+  const digits = value.replace(/\D/g, "").slice(0, 11);
+  if (digits.length <= 3) return digits;
+  if (digits.length <= 7) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+  return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7)}`;
 }
 
 export function maskPhone(phone: string): string {

@@ -1,3 +1,5 @@
+import { Check } from "lucide-react";
+
 const STEPS = [
   { index: 1, label: "진료" },
   { index: 2, label: "일정" },
@@ -41,7 +43,7 @@ export default function Stepper({
                     : "border border-slate-200 text-brand-text-muted"
                 } ${clickable ? "cursor-pointer hover:bg-brand-text" : "cursor-default"}`}
               >
-                {step.index}
+                {completed ? <Check size={16} strokeWidth={2.2} /> : step.index}
               </button>
               <div className="flex-1">
                 {i < STEPS.length - 1 && (

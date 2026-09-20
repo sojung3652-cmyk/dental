@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { SERVICES } from "@/data/services";
 import { doctors } from "@/data/doctors";
-import { formatFullDate, formatTimeKo } from "@/data/reservation";
+import { formatFullDate, formatPhoneInput, formatTimeKo } from "@/data/reservation";
 
 const detailsSchema = z.object({
   name: z.string().min(2, "이름을 2자 이상 입력해주세요"),
@@ -44,6 +44,8 @@ export default function StepDetails({
     defaultValues: { name: "", phone: "", memo: "", consent: undefined },
   });
 
+  const phoneField = register("phone");
+
   const service = SERVICES.find((s) => s.slug === serviceSlug);
   const doctor = doctors.find((d) => d.slug === doctorSlug);
   const [datePart, time] = isoSlot.split("T");
@@ -51,7 +53,7 @@ export default function StepDetails({
 
   return (
     <div>
-      <p className="text-sm font-medium text-brand-accent mb-2 text-center">마지막 한 단계만</p>
+      <p className="text-sm text-brand-text-muted mb-2 text-center">3단계 · 정보 입력</p>
       <h1 className="headline-tight text-3xl md:text-4xl font-light text-brand-text text-center mb-12">
         거의 다 <span className="font-semibold">왔어요</span>
       </h1>
@@ -63,39 +65,44 @@ export default function StepDetails({
           noValidate
         >
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-brand-text mb-1.5">
-              이름
+            <label htmlFor="name" className="block text-sm font-medium text-brand-text-sub mb-2">
+              이름 <span className="text-brand-accent">*</span>
             </label>
             <input
               id="name"
               type="text"
               {...register("name")}
-              className="w-full rounded-lg border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:border-brand-primary"
+              className="w-full h-12 rounded-lg border border-slate-200 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 px-4 text-sm outline-none"
               placeholder="홍길동"
             />
             {errors.name && (
-              <p className="text-xs text-brand-accent mt-1.5">{errors.name.message}</p>
+              <p className="text-xs text-red-600 mt-1">{errors.name.message}</p>
             )}
           </div>
 
           <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-brand-text mb-1.5">
-              휴대폰
+            <label htmlFor="phone" className="block text-sm font-medium text-brand-text-sub mb-2">
+              휴대폰 <span className="text-brand-accent">*</span>
             </label>
             <input
               id="phone"
               type="tel"
-              {...register("phone")}
-              className="w-full rounded-lg border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:border-brand-primary"
+              inputMode="numeric"
+              {...phoneField}
+              onChange={(e) => {
+                e.target.value = formatPhoneInput(e.target.value);
+                phoneField.onChange(e);
+              }}
+              className="w-full h-12 rounded-lg border border-slate-200 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 px-4 text-sm outline-none"
               placeholder="010-0000-0000"
             />
             {errors.phone && (
-              <p className="text-xs text-brand-accent mt-1.5">{errors.phone.message}</p>
+              <p className="text-xs text-red-600 mt-1">{errors.phone.message}</p>
             )}
           </div>
 
           <div>
-            <label htmlFor="memo" className="block text-sm font-medium text-brand-text mb-1.5">
+            <label htmlFor="memo" className="block text-sm font-medium text-brand-text-sub mb-2">
               메모 <span className="text-brand-text-muted font-normal">(선택)</span>
             </label>
             <textarea
@@ -103,11 +110,11 @@ export default function StepDetails({
               rows={3}
               maxLength={300}
               {...register("memo")}
-              className="w-full rounded-lg border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:border-brand-primary resize-none"
-              placeholder="궁금하신 점이나 말씀하실 게 있다면 편하게 적어주세요"
+              className="w-full rounded-lg border border-slate-200 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 px-4 py-3 text-sm outline-none resize-none"
+              placeholder="궁금하신 점이나 요청사항이 있다면 편하게 적어주세요"
             />
             {errors.memo && (
-              <p className="text-xs text-brand-accent mt-1.5">{errors.memo.message}</p>
+              <p className="text-xs text-red-600 mt-1">{errors.memo.message}</p>
             )}
           </div>
 
@@ -118,10 +125,10 @@ export default function StepDetails({
                 {...register("consent")}
                 className="mt-0.5 w-4 h-4 rounded border-slate-300 text-brand-primary-dark focus:ring-brand-primary"
               />
-              개인정보 수집·이용에 동의합니다
+              개인정보 수집·이용 동의 <span className="text-brand-accent">*</span>
             </label>
             {errors.consent && (
-              <p className="text-xs text-brand-accent mt-1.5">{errors.consent.message}</p>
+              <p className="text-xs text-red-600 mt-1">{errors.consent.message}</p>
             )}
           </div>
 
@@ -136,10 +143,11 @@ export default function StepDetails({
           </div>
         </form>
 
-        <div className="bg-brand-sub-surface rounded-2xl p-6 space-y-4 order-1 md:order-2">
+        <div className="bg-brand-sub-surface rounded-2xl p-6 space-y-4 order-1 md:order-2 md:sticky md:top-24">
+          <h2 className="text-sm font-semibold text-brand-text">예약 정보</h2>
           <div className="flex items-start justify-between gap-2">
             <div>
-              <p className="text-xs text-brand-text-muted mb-0.5">진료</p>
+              <p className="text-xs text-brand-text-muted mb-0.5">진료 유형</p>
               <p className="text-sm font-medium text-brand-text">{service?.title}</p>
             </div>
             <button
@@ -152,8 +160,8 @@ export default function StepDetails({
           </div>
           <div className="flex items-start justify-between gap-2">
             <div>
-              <p className="text-xs text-brand-text-muted mb-0.5">원장</p>
-              <p className="text-sm font-medium text-brand-text">{doctor?.name} 원장님</p>
+              <p className="text-xs text-brand-text-muted mb-0.5">담당 선생님</p>
+              <p className="text-sm font-medium text-brand-text">{doctor?.name} 선생님</p>
             </div>
             <button
               type="button"
@@ -178,6 +186,9 @@ export default function StepDetails({
               수정
             </button>
           </div>
+          <p className="text-xs text-brand-text-muted pt-2 border-t border-slate-200">
+            선택하신 내용을 확인 후 정보를 입력해주세요
+          </p>
         </div>
       </div>
     </div>

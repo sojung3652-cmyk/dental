@@ -10,6 +10,7 @@ import {
   addWeeks,
   formatDayLabel,
   formatFullDate,
+  formatMonthDay,
   formatTimeKo,
   mondayOf,
   slotStatus,
@@ -33,14 +34,23 @@ export default function StepSchedule({
   const today = useMemo(() => new Date(), []);
   const currentMonday = useMemo(() => mondayOf(today), [today]);
 
+  // If today is Sunday (clinic closed, hidden from the grid), the week
+  // containing "today" has no bookable days left — default to next week
+  // instead of showing an all-past, all-struck-through grid.
+  const minWeekOffset = useMemo(() => {
+    const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const saturday = weekDates(currentMonday)[5];
+    return saturday < startOfToday ? 1 : 0;
+  }, [currentMonday, today]);
+
   const initialWeekOffset = useMemo(() => {
-    if (!initialSlot) return 0;
+    if (!initialSlot) return minWeekOffset;
     const [datePart] = initialSlot.split("T");
     const d = new Date(datePart);
-    if (Number.isNaN(d.getTime())) return 0;
+    if (Number.isNaN(d.getTime())) return minWeekOffset;
     const diffDays = Math.round((mondayOf(d).getTime() - currentMonday.getTime()) / 86400000);
-    return Math.max(0, Math.round(diffDays / 7));
-  }, [initialSlot, currentMonday]);
+    return Math.max(minWeekOffset, Math.round(diffDays / 7));
+  }, [initialSlot, currentMonday, minWeekOffset]);
 
   const [weekOffset, setWeekOffset] = useState(initialWeekOffset);
   const [pendingSlot, setPendingSlot] = useState<{ date: Date; time: string } | null>(null);
@@ -64,14 +74,14 @@ export default function StepSchedule({
 
   return (
     <div>
-      <p className="text-sm font-medium text-brand-accent mb-2 text-center">편하신 시간으로</p>
+      <p className="text-sm text-brand-text-muted mb-2 text-center">2단계 · 의료진 및 일정</p>
       <h1 className="headline-tight text-3xl md:text-4xl font-light text-brand-text text-center mb-12">
         언제, 어느 <span className="font-semibold">선생님과 함께할까요</span>?
       </h1>
 
       <div className="grid md:grid-cols-[280px_1fr] gap-8 items-start">
         {/* Doctor picker */}
-        <div className="space-y-2">
+        <div className="min-w-0 flex md:flex-col gap-2 overflow-x-auto snap-x snap-mandatory md:overflow-visible pb-2 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0">
           {doctors.map((doctor) => {
             const active = doctor.slug === doctorSlug;
             const isRecommended = recommended.includes(doctor.slug);
@@ -81,7 +91,7 @@ export default function StepSchedule({
                 key={doctor.slug}
                 type="button"
                 onClick={() => onPickDoctor(doctor.slug)}
-                className={`w-full text-left flex items-center gap-3 p-3 rounded-xl border transition-colors ${
+                className={`snap-start shrink-0 md:w-full text-left flex items-center gap-3 p-3 rounded-xl border transition-colors ${
                   active
                     ? "border-brand-primary-dark bg-brand-sub-surface"
                     : "border-slate-200 hover:bg-brand-sub-surface"
@@ -91,7 +101,7 @@ export default function StepSchedule({
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
                     <span className="font-semibold text-brand-text text-sm truncate">
-                      {doctor.name} 원장님
+                      {doctor.name} 선생님
                     </span>
                     {isRecommended && (
                       <span className="text-[11px] text-brand-accent border border-brand-accent/40 rounded-full px-1.5 py-0.5 shrink-0">
@@ -116,7 +126,7 @@ export default function StepSchedule({
         </div>
 
         {/* Calendar */}
-        <div className="bg-brand-surface rounded-2xl p-4 md:p-6 relative">
+        <div className="min-w-0 bg-brand-surface rounded-2xl p-4 md:p-6 relative">
           {!doctorSlug && (
             <div className="absolute inset-0 bg-brand-surface/80 backdrop-blur-[1px] rounded-2xl z-10 flex items-center justify-center text-center px-6">
               <p className="text-brand-text-sub text-sm">
@@ -125,18 +135,18 @@ export default function StepSchedule({
             </div>
           )}
 
-          <div className="flex items-center justify-between mb-4">
+          <div className="sticky top-16 md:static z-30 bg-brand-surface md:bg-transparent -mx-4 md:mx-0 px-4 md:px-0 pb-3 md:pb-4 flex items-center justify-between">
             <button
               type="button"
-              disabled={weekOffset === 0}
-              onClick={() => setWeekOffset((w) => Math.max(0, w - 1))}
+              disabled={weekOffset <= minWeekOffset}
+              onClick={() => setWeekOffset((w) => Math.max(minWeekOffset, w - 1))}
               className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-brand-sub-surface disabled:opacity-30 disabled:hover:bg-transparent"
               aria-label="이전 주"
             >
               <ChevronLeft size={18} strokeWidth={1.8} />
             </button>
             <p className="text-sm font-medium text-brand-primary-dark">
-              {formatDayLabel(days[0])} – {formatDayLabel(days[5])}
+              {formatMonthDay(days[0])} – {formatMonthDay(days[5])}
             </p>
             <button
               type="button"
@@ -187,7 +197,7 @@ export default function StepSchedule({
                       return (
                         <div
                           key={time + date.toISOString()}
-                          className="rounded-md h-9 flex items-center justify-center text-xs text-brand-text-muted line-through"
+                          className="rounded-md h-9 flex items-center justify-center text-xs text-brand-text-muted line-through opacity-40 cursor-not-allowed"
                         >
                           {time}
                         </div>
@@ -212,13 +222,10 @@ export default function StepSchedule({
         </div>
       </div>
 
-      {selectedDoctor && (
+      {selectedDoctor && pendingSlot && (
         <div className="fixed md:static bottom-0 left-0 right-0 md:mt-8 bg-brand-primary-dark md:bg-brand-sub-surface text-white md:text-brand-text p-4 md:p-4 md:rounded-xl md:max-w-md md:mx-auto text-center z-20 shadow-lg md:shadow-none">
           <p className="text-sm">
-            {selectedDoctor.name} 원장님 ·{" "}
-            {pendingSlot
-              ? `${formatFullDate(pendingSlot.date)} ${formatTimeKo(pendingSlot.time)}`
-              : "시간을 선택해주세요"}
+            {selectedDoctor.name} 선생님과 {formatFullDate(pendingSlot.date)} {formatTimeKo(pendingSlot.time)}
           </p>
         </div>
       )}

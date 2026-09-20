@@ -21,8 +21,9 @@ export default function ReservationFlow() {
 
   // Contact info never lives in the URL — kept in memory for the current
   // session only. A cold deep link straight to the confirmed URL (no prior
-  // form submit) simply won't have a phone to show; StepConfirmation
-  // handles that by hiding the row.
+  // form submit) simply won't have these to show; StepConfirmation handles
+  // that by hiding the rows.
+  const [submittedName, setSubmittedName] = useState<string | undefined>();
   const [submittedPhone, setSubmittedPhone] = useState<string | undefined>();
 
   let step: 1 | 2 | 3 | 4 = 1;
@@ -84,6 +85,7 @@ export default function ReservationFlow() {
   }
 
   function handleSubmitDetails(details: ReservationDetails) {
+    setSubmittedName(details.name);
     setSubmittedPhone(details.phone);
     const newRef = generateReservationRef();
     pushParams((p) => {
@@ -94,12 +96,13 @@ export default function ReservationFlow() {
 
   if (step === 4 && service && doctor && slot && ref) {
     return (
-      <div className="max-w-6xl mx-auto px-4 md:px-8 py-16 md:py-24">
+      <div className="max-w-xl mx-auto px-4 md:px-8 py-16 md:py-24">
         <StepConfirmation
           serviceSlug={service}
           doctorSlug={doctor}
           isoSlot={slot}
           ref={ref}
+          name={submittedName}
           phone={submittedPhone}
         />
       </div>
@@ -107,10 +110,10 @@ export default function ReservationFlow() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 md:px-8 py-16 md:py-24">
+    <div className="max-w-4xl mx-auto px-4 md:px-8 py-16 md:py-20">
       <Stepper current={step === 4 ? 3 : (step as 1 | 2 | 3)} onJump={(s) => (s === 1 ? goToStep1() : goToStep2())} />
 
-      {step === 1 && <StepService onSelect={handleSelectService} />}
+      {step === 1 && <StepService doctorSlug={doctor} onSelect={handleSelectService} />}
 
       {step === 2 && (
         <StepSchedule
