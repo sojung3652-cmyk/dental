@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { CLINIC } from "@/data/clinic";
 
 const TREATMENT_LINKS = ["일반 진료", "사랑니", "스케일링", "임플란트", "교정"];
@@ -15,7 +16,13 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-4 md:px-8 py-16">
         <div className="grid md:grid-cols-12 gap-10">
           <div className="md:col-span-4">
-            <Image src="/logo.svg" alt={CLINIC.nameKo} width={160} height={45} className="h-10 w-auto" />
+            <Link
+              href="/"
+              aria-label={`${CLINIC.nameKo} 홈으로`}
+              className="inline-flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 rounded-md"
+            >
+              <Image src="/logo.svg" alt={CLINIC.nameKo} width={160} height={45} className="h-10 w-auto" />
+            </Link>
             <p className="text-sm text-brand-text-sub mt-6 body-relaxed">
               {CLINIC.address.line1}
               <br />

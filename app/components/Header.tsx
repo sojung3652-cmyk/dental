@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { CLINIC } from "@/data/clinic";
 import { NAV_ITEMS } from "@/data/nav";
@@ -14,7 +15,11 @@ export default function Header() {
     <>
       <header className="sticky top-0 z-40 bg-brand-bg/85 backdrop-blur border-b border-slate-200/60">
         <div className="max-w-6xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
-          <a href="#top" className="flex items-center">
+          <Link
+            href="/"
+            aria-label={`${CLINIC.nameKo} 홈으로`}
+            className="inline-flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 rounded-md"
+          >
             <Image
               src="/logo.svg"
               alt={CLINIC.nameKo}
@@ -23,7 +28,7 @@ export default function Header() {
               priority
               className="h-10 w-auto"
             />
-          </a>
+          </Link>
 
           <nav className="hidden md:flex items-center gap-8 text-sm text-brand-text-sub">
             {NAV_ITEMS.map((item) =>
@@ -87,7 +92,14 @@ export default function Header() {
         className={`fixed inset-0 z-50 bg-brand-bg md:hidden flex flex-col ${open ? "open" : ""}`}
       >
         <div className="h-16 flex items-center justify-between px-4 border-b border-slate-200/60 shrink-0">
-          <Image src="/logo.svg" alt={CLINIC.nameKo} width={160} height={45} className="h-9 w-auto" />
+          <Link
+            href="/"
+            onClick={() => setOpen(false)}
+            aria-label={`${CLINIC.nameKo} 홈으로`}
+            className="inline-flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 rounded-md"
+          >
+            <Image src="/logo.svg" alt={CLINIC.nameKo} width={160} height={45} className="h-9 w-auto" />
+          </Link>
           <button
             aria-label="메뉴 닫기"
             onClick={() => setOpen(false)}
