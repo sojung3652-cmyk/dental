@@ -96,7 +96,7 @@ export default function ReservationFlow() {
 
   if (step === 4 && service && doctor && slot && ref) {
     return (
-      <div className="max-w-xl mx-auto px-4 md:px-8 py-16 md:py-24">
+      <div className="px-4 md:px-8">
         <StepConfirmation
           serviceSlug={service}
           doctorSlug={doctor}

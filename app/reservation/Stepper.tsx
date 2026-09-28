@@ -37,7 +37,7 @@ export default function Stepper({
                 disabled={!clickable}
                 onClick={() => clickable && onJump(step.index as 1 | 2)}
                 aria-current={isCurrent ? "step" : undefined}
-                className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors ${
+                className={`shrink-0 w-9 h-9 rounded-full flex items-center justify-center text-sm font-medium transition-colors ${
                   completed || isCurrent
                     ? "bg-brand-primary-dark text-white"
                     : "border border-slate-200 text-brand-text-muted"

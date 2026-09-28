@@ -7,6 +7,7 @@ import DoctorPortrait from "../components/DoctorPortrait";
 import {
   SERVICE_DOCTOR_MATCH,
   TIME_SLOTS,
+  WEEKS_AHEAD,
   addWeeks,
   formatDayLabel,
   formatFullDate,
@@ -52,6 +53,8 @@ export default function StepSchedule({
     return Math.max(minWeekOffset, Math.round(diffDays / 7));
   }, [initialSlot, currentMonday, minWeekOffset]);
 
+  const maxWeekOffset = minWeekOffset + WEEKS_AHEAD - 1;
+
   const [weekOffset, setWeekOffset] = useState(initialWeekOffset);
   const [pendingSlot, setPendingSlot] = useState<{ date: Date; time: string } | null>(null);
 
@@ -68,9 +71,21 @@ export default function StepSchedule({
   function handleSlotClick(date: Date, time: string) {
     if (!doctorSlug) return;
     setPendingSlot({ date, time });
-    const iso = `${toDateStr(date)}T${time}`;
-    window.setTimeout(() => onPickSlot(doctorSlug, iso), 350);
   }
+
+  function advanceNow() {
+    if (!doctorSlug || !pendingSlot) return;
+    const iso = `${toDateStr(pendingSlot.date)}T${pendingSlot.time}`;
+    onPickSlot(doctorSlug, iso);
+  }
+
+  useEffect(() => {
+    if (!pendingSlot || !doctorSlug) return;
+    const iso = `${toDateStr(pendingSlot.date)}T${pendingSlot.time}`;
+    const timer = window.setTimeout(() => onPickSlot(doctorSlug, iso), 600);
+    return () => window.clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pendingSlot, doctorSlug]);
 
   return (
     <div>
@@ -91,34 +106,29 @@ export default function StepSchedule({
                 key={doctor.slug}
                 type="button"
                 onClick={() => onPickDoctor(doctor.slug)}
-                className={`snap-start shrink-0 md:w-full text-left flex items-center gap-3 p-3 rounded-xl border transition-colors ${
-                  active
-                    ? "border-brand-primary-dark bg-brand-sub-surface"
-                    : "border-slate-200 hover:bg-brand-sub-surface"
+                className={`snap-start shrink-0 md:w-full text-left flex items-center gap-3 p-3 rounded-xl transition-colors ${
+                  active ? "bg-brand-primary-dark text-white" : "bg-brand-surface hover:bg-brand-sub-surface"
                 }`}
               >
                 <DoctorPortrait slug={doctor.slug} shape="circle" className="w-10 h-10 rounded-full shrink-0" />
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="font-semibold text-brand-text text-sm truncate">
-                      {doctor.name} 선생님
+                    <span className={`font-semibold text-sm truncate ${active ? "text-white" : "text-brand-text"}`}>
+                      {doctor.name} 원장
                     </span>
                     {isRecommended && (
-                      <span className="text-[11px] text-brand-accent border border-brand-accent/40 rounded-full px-1.5 py-0.5 shrink-0">
+                      <span
+                        className={`text-xs px-2 py-0.5 rounded-full shrink-0 ${
+                          active ? "bg-white/20 text-white" : "bg-brand-accent/15 text-brand-accent"
+                        }`}
+                      >
                         추천
                       </span>
                     )}
                   </div>
-                  <div className="flex gap-1 mt-1 flex-wrap">
-                    {doctor.specialties.map((specialty) => (
-                      <span
-                        key={specialty}
-                        className="text-[11px] text-brand-text-sub bg-white border border-slate-200 rounded-full px-2 py-0.5"
-                      >
-                        {specialty}
-                      </span>
-                    ))}
-                  </div>
+                  <p className={`text-xs truncate ${active ? "text-white/80" : "text-brand-text-muted"}`}>
+                    {doctor.specialties.join(" · ")}
+                  </p>
                 </div>
               </button>
             );
@@ -150,8 +160,9 @@ export default function StepSchedule({
             </p>
             <button
               type="button"
-              onClick={() => setWeekOffset((w) => w + 1)}
-              className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-brand-sub-surface"
+              disabled={weekOffset >= maxWeekOffset}
+              onClick={() => setWeekOffset((w) => Math.min(maxWeekOffset, w + 1))}
+              className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-brand-sub-surface disabled:opacity-30 disabled:hover:bg-transparent"
               aria-label="다음 주"
             >
               <ChevronRight size={18} strokeWidth={1.8} />
@@ -175,7 +186,7 @@ export default function StepSchedule({
                     {time}
                   </div>
                   {days.map((date) => {
-                    const status = doctorSlug ? slotStatus(doctorSlug, date, time) : "unavailable";
+                    const status = doctorSlug ? slotStatus(doctorSlug, date, time) : "off";
                     const isPending =
                       pendingSlot &&
                       toDateStr(pendingSlot.date) === toDateStr(date) &&
@@ -185,10 +196,21 @@ export default function StepSchedule({
                       return (
                         <div
                           key={time + date.toISOString()}
-                          className="relative rounded-md h-9 flex items-center justify-center text-xs bg-brand-primary-dark text-white"
+                          className="relative rounded-md h-10 md:h-11 min-w-[3rem] flex items-center justify-center text-xs bg-brand-primary-dark text-white"
                         >
                           <span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-brand-accent" />
                           {time}
+                        </div>
+                      );
+                    }
+
+                    if (status === "off") {
+                      return (
+                        <div
+                          key={time + date.toISOString()}
+                          className="rounded-md h-10 md:h-11 min-w-[3rem] bg-transparent border border-slate-200 text-brand-text-muted text-xs flex items-center justify-center"
+                        >
+                          휴진
                         </div>
                       );
                     }
@@ -197,7 +219,7 @@ export default function StepSchedule({
                       return (
                         <div
                           key={time + date.toISOString()}
-                          className="rounded-md h-9 flex items-center justify-center text-xs text-brand-text-muted line-through opacity-40 cursor-not-allowed"
+                          className="rounded-md h-10 md:h-11 min-w-[3rem] flex items-center justify-center text-xs text-brand-text-muted line-through opacity-40 cursor-not-allowed"
                         >
                           {time}
                         </div>
@@ -209,7 +231,7 @@ export default function StepSchedule({
                         key={time + date.toISOString()}
                         type="button"
                         onClick={() => handleSlotClick(date, time)}
-                        className="rounded-md h-9 flex items-center justify-center text-xs bg-brand-sub-surface hover:bg-brand-primary hover:text-white transition-colors"
+                        className="rounded-md h-10 md:h-11 min-w-[3rem] flex items-center justify-center text-xs bg-brand-sub-surface hover:bg-brand-primary hover:text-white transition-colors text-brand-text"
                       >
                         {time}
                       </button>
@@ -223,10 +245,17 @@ export default function StepSchedule({
       </div>
 
       {selectedDoctor && pendingSlot && (
-        <div className="fixed md:static bottom-0 left-0 right-0 md:mt-8 bg-brand-primary-dark md:bg-brand-sub-surface text-white md:text-brand-text p-4 md:p-4 md:rounded-xl md:max-w-md md:mx-auto text-center z-20 shadow-lg md:shadow-none">
-          <p className="text-sm">
-            {selectedDoctor.name} 선생님과 {formatFullDate(pendingSlot.date)} {formatTimeKo(pendingSlot.time)}
+        <div className="fixed md:static bottom-0 left-0 right-0 z-20 bg-brand-surface shadow-xl p-4 md:static md:mt-6 md:shadow-none md:rounded-xl md:bg-brand-sub-surface flex items-center justify-between gap-4">
+          <p className="text-sm text-brand-text">
+            {selectedDoctor.name} 선생님과 {formatFullDate(pendingSlot.date)} {formatTimeKo(pendingSlot.time)} 예약
           </p>
+          <button
+            type="button"
+            onClick={advanceNow}
+            className="shrink-0 bg-brand-primary-dark hover:bg-brand-text text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors"
+          >
+            다음 단계로
+          </button>
         </div>
       )}
     </div>

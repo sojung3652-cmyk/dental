@@ -48,10 +48,10 @@ export default function StepService({
               )}
             </div>
             <p className="text-sm text-brand-text-sub mb-3">{blurb}</p>
-            <span className="inline-block text-xs text-brand-primary-dark bg-brand-sub-surface rounded-full px-2.5 py-1 mb-3">
+            <span className="inline-block text-xs px-2 py-1 rounded-full bg-brand-sub-surface text-brand-primary-dark">
               {toEstimatePill(duration)}
             </span>
-            <p className="text-xs text-brand-text-sub">{prepNote}</p>
+            <p className="text-xs text-brand-text-muted mt-2">{prepNote}</p>
           </button>
         ))}
       </div>

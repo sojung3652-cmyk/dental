@@ -90,28 +90,30 @@ export function formatTimeKo(time: string): string {
   return m === 0 ? `${period} ${hour12}시` : `${period} ${hour12}:${pad2(m)}`;
 }
 
-type SlotStatus = "available" | "unavailable" | "past";
+type SlotStatus = "available" | "booked" | "past" | "off";
 
 /** Reads from the data/slots.ts fixture (3 populated weeks) when available;
  * outside that window, falls back to the weekly recurring pattern
  * (am/pm/full/off) + a deterministic ~20% "booked" scatter, seeded per
  * doctor+date+time so the same URL always renders the same fake
- * availability. Past dates/times are always unavailable. */
+ * availability. Past dates/times are always unavailable. "off" means the
+ * doctor doesn't work that day at all (vs "booked", an individual taken
+ * slot on a day they do work) — StepSchedule renders these differently. */
 export function slotStatus(doctorSlug: string, date: Date, time: string): SlotStatus {
   const now = new Date();
   const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   if (date < startOfToday) return "past";
 
   const dayIndex = (date.getDay() + 6) % 7; // 0 = Monday
-  if (dayIndex > 5) return "unavailable"; // Sunday: clinic closed
+  if (dayIndex > 5) return "off"; // Sunday: clinic closed
 
   const doctorRow = DOCTOR_SCHEDULE.find((d) => d.slug === doctorSlug);
   const pattern: DaySlot = doctorRow ? doctorRow.slots[dayIndex] : "off";
-  if (pattern === "off") return "unavailable";
+  if (pattern === "off") return "off";
 
   const hour = Number(time.split(":")[0]);
-  if (pattern === "am" && hour >= 12) return "unavailable";
-  if (pattern === "pm" && hour < 14) return "unavailable";
+  if (pattern === "am" && hour >= 12) return "booked";
+  if (pattern === "pm" && hour < 14) return "booked";
 
   if (date.getTime() === startOfToday.getTime()) {
     const [h, m] = time.split(":").map(Number);
@@ -123,14 +125,19 @@ export function slotStatus(doctorSlug: string, date: Date, time: string): SlotSt
   const fixtureKey = `${doctorSlug}|${toDateStr(date)}T${time}`;
   const fixtureAvailable = SLOT_FIXTURE_MAP.get(fixtureKey);
   if (fixtureAvailable !== undefined) {
-    return fixtureAvailable ? "available" : "unavailable";
+    return fixtureAvailable ? "available" : "booked";
   }
 
   const bookedRoll = hashStr(`${doctorSlug}|${toDateStr(date)}|${time}`) % 5;
-  if (bookedRoll === 0) return "unavailable";
+  if (bookedRoll === 0) return "booked";
 
   return "available";
 }
+
+/** Calendar navigation window: today's week (or next week if today's week
+ * has nothing bookable left) through 3 weeks total, matching the
+ * data/slots.ts fixture range. */
+export const WEEKS_AHEAD = 3;
 
 export function generateReservationRef(): string {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";

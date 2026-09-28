@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -11,7 +12,7 @@ const detailsSchema = z.object({
   name: z.string().min(2, "이름을 2자 이상 입력해주세요"),
   phone: z
     .string()
-    .regex(/^010-\d{4}-\d{4}$/, "010-0000-0000 형식으로 입력해주세요"),
+    .regex(/^010-\d{4}-\d{4}$/, "010으로 시작하는 휴대폰 번호를 입력해주세요"),
   memo: z.string().max(300, "300자 이내로 입력해주세요").optional(),
   consent: z.literal(true, {
     error: "개인정보 수집·이용에 동의해주세요",
@@ -38,13 +39,16 @@ export default function StepDetails({
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    watch,
+    formState: { errors, isSubmitting, isValid },
   } = useForm<ReservationDetails>({
     resolver: zodResolver(detailsSchema),
+    mode: "onChange",
     defaultValues: { name: "", phone: "", memo: "", consent: undefined },
   });
 
   const phoneField = register("phone");
+  const memoLength = watch("memo")?.length ?? 0;
 
   const service = SERVICES.find((s) => s.slug === serviceSlug);
   const doctor = doctors.find((d) => d.slug === doctorSlug);
@@ -61,7 +65,7 @@ export default function StepDetails({
       <div className="grid md:grid-cols-[1fr_320px] gap-8 max-w-3xl mx-auto items-start">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="bg-brand-surface rounded-2xl p-6 md:p-8 space-y-5 order-2 md:order-1"
+          className="bg-brand-surface rounded-2xl p-6 md:p-8 space-y-6 order-2 md:order-1"
           noValidate
         >
           <div>
@@ -72,17 +76,17 @@ export default function StepDetails({
               id="name"
               type="text"
               {...register("name")}
-              className="w-full h-12 rounded-lg border border-slate-200 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 px-4 text-sm outline-none"
+              className="w-full h-12 rounded-lg border border-slate-200 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 px-4 text-brand-text transition outline-none"
               placeholder="홍길동"
             />
             {errors.name && (
-              <p className="text-xs text-red-600 mt-1">{errors.name.message}</p>
+              <p className="text-xs text-red-600 mt-1.5">{errors.name.message}</p>
             )}
           </div>
 
           <div>
             <label htmlFor="phone" className="block text-sm font-medium text-brand-text-sub mb-2">
-              휴대폰 <span className="text-brand-accent">*</span>
+              휴대폰 번호 <span className="text-brand-accent">*</span>
             </label>
             <input
               id="phone"
@@ -93,11 +97,11 @@ export default function StepDetails({
                 e.target.value = formatPhoneInput(e.target.value);
                 phoneField.onChange(e);
               }}
-              className="w-full h-12 rounded-lg border border-slate-200 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 px-4 text-sm outline-none"
-              placeholder="010-0000-0000"
+              className="w-full h-12 rounded-lg border border-slate-200 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 px-4 text-brand-text transition outline-none"
+              placeholder="010-1234-5678"
             />
             {errors.phone && (
-              <p className="text-xs text-red-600 mt-1">{errors.phone.message}</p>
+              <p className="text-xs text-red-600 mt-1.5">{errors.phone.message}</p>
             )}
           </div>
 
@@ -105,16 +109,21 @@ export default function StepDetails({
             <label htmlFor="memo" className="block text-sm font-medium text-brand-text-sub mb-2">
               메모 <span className="text-brand-text-muted font-normal">(선택)</span>
             </label>
-            <textarea
-              id="memo"
-              rows={3}
-              maxLength={300}
-              {...register("memo")}
-              className="w-full rounded-lg border border-slate-200 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 px-4 py-3 text-sm outline-none resize-none"
-              placeholder="궁금하신 점이나 요청사항이 있다면 편하게 적어주세요"
-            />
+            <div className="relative">
+              <textarea
+                id="memo"
+                rows={3}
+                maxLength={300}
+                {...register("memo")}
+                className="w-full min-h-[6rem] rounded-lg border border-slate-200 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 p-4 text-brand-text transition outline-none resize-none"
+                placeholder="궁금하신 점이나 요청사항이 있다면 편하게 적어주세요"
+              />
+              <span className="absolute bottom-2 right-3 text-xs text-brand-text-muted">
+                {memoLength} / 300
+              </span>
+            </div>
             {errors.memo && (
-              <p className="text-xs text-red-600 mt-1">{errors.memo.message}</p>
+              <p className="text-xs text-red-600 mt-1.5">{errors.memo.message}</p>
             )}
           </div>
 
@@ -123,19 +132,29 @@ export default function StepDetails({
               <input
                 type="checkbox"
                 {...register("consent")}
-                className="mt-0.5 w-4 h-4 rounded border-slate-300 text-brand-primary-dark focus:ring-brand-primary"
+                className="mt-0.5 w-5 h-5 rounded border-slate-300 text-brand-primary focus:ring-brand-primary/20"
               />
-              개인정보 수집·이용 동의 <span className="text-brand-accent">*</span>
+              <span>
+                개인정보 수집·이용에 동의합니다 <span className="text-brand-accent">(필수)</span>{" "}
+                <Link
+                  href="/privacy"
+                  target="_blank"
+                  onClick={(e) => e.stopPropagation()}
+                  className="text-brand-primary-dark underline underline-offset-2 hover:text-brand-text"
+                >
+                  자세히 보기
+                </Link>
+              </span>
             </label>
             {errors.consent && (
-              <p className="text-xs text-red-600 mt-1">{errors.consent.message}</p>
+              <p className="text-xs text-red-600 mt-1.5">{errors.consent.message}</p>
             )}
           </div>
 
           <div className="pt-2 flex justify-end">
             <button
               type="submit"
-              disabled={isSubmitting}
+              disabled={!isValid || isSubmitting}
               className="w-full md:w-auto bg-brand-primary-dark hover:bg-brand-text text-white px-8 py-3.5 rounded-lg font-medium transition-colors disabled:opacity-60"
             >
               예약 확정하기
