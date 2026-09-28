@@ -7,7 +7,7 @@ const CLINIC_LINKS: { label: string; href: string }[] = [
   { label: "의료진", href: "#doctors" },
   { label: "진료 시간", href: "#schedule" },
   { label: "오시는 길", href: "#location" },
-  { label: "비급여 안내", href: "/pricing" },
+  { label: "비급여 안내", href: "/community/prices" },
 ];
 
 export default function Footer() {

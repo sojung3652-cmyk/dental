@@ -29,10 +29,10 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     label: "커뮤니티",
-    href: "#",
+    href: "/community/notice",
     dropdown: [
-      { label: "공지사항", href: "#" },
-      { label: "비급여수가표", href: "/pricing" },
+      { label: "공지사항", href: "/community/notice" },
+      { label: "비급여수가표", href: "/community/prices" },
     ],
   },
 ];
