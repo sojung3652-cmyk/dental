@@ -28,7 +28,35 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css"
         />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <a
+          href="#main"
+          className="
+            sr-only
+            focus:not-sr-only
+            focus:fixed
+            focus:top-4
+            focus:left-1/2
+            focus:-translate-x-1/2
+            focus:z-[100]
+            focus:bg-brand-primary-dark
+            focus:text-white
+            focus:px-5
+            focus:py-3
+            focus:rounded-lg
+            focus:shadow-lg
+            focus:text-sm
+            focus:font-medium
+            focus:outline-none
+            focus:ring-2
+            focus:ring-brand-accent
+            focus:ring-offset-2
+          "
+        >
+          메인 콘텐츠로 건너뛰기
+        </a>
+        {children}
+      </body>
     </html>
   );
 }

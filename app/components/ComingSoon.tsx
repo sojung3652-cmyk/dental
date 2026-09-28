@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function ComingSoon({ title, blurb }: { title: string; blurb: string }) {
   return (
-    <main className="flex-1 flex items-center">
+    <main id="main" tabIndex={-1} className="flex-1 flex items-center focus:outline-none">
       <div className="max-w-6xl mx-auto px-4 md:px-8 py-24 md:py-32 text-center w-full">
         <p className="text-sm font-medium text-brand-accent mb-4">준비 중입니다</p>
         <h1 className="display-tight text-4xl md:text-6xl font-light text-brand-text mb-6">

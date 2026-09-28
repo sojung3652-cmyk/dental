@@ -11,7 +11,7 @@ export default function DoctorsPage() {
   return (
     <>
       <Header />
-      <main className="flex-1">
+      <main id="main" tabIndex={-1} className="flex-1 focus:outline-none">
         <div className="max-w-6xl mx-auto px-4 md:px-8 py-16 md:py-24">
           <div className="max-w-2xl mb-14 md:mb-16">
             <p className="section-eyebrow">의료진 소개</p>

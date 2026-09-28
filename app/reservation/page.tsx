@@ -10,7 +10,7 @@ export default function ReservationPage() {
   return (
     <>
       <Header />
-      <main className="flex-1">
+      <main id="main" tabIndex={-1} className="flex-1 focus:outline-none">
         <Suspense fallback={null}>
           <ReservationFlow />
         </Suspense>
