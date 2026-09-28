@@ -87,10 +87,10 @@ export default function PricesPage() {
             );
           })}
 
-          <p className="text-xs text-brand-text-muted mt-12 pt-6 border-t border-slate-200">
-            상기 비급여 진료비용은 병원 사정에 따라 변경될 수 있으며, 정확한 비용은 진료 상담 시
-            안내드립니다.
-          </p>
+          <div className="text-xs text-brand-text-muted mt-12 space-y-1">
+            <p>상기 비급여 진료비용은 병원 사정에 따라 변경될 수 있으며, 정확한 비용은 진료 상담 시 안내드립니다.</p>
+            <p>비급여 진료는 건강보험 급여 대상에서 제외되어 진료비 전액을 환자가 부담합니다.</p>
+          </div>
         </div>
       </main>
       <Footer />
