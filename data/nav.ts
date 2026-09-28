@@ -14,13 +14,13 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     label: "진료안내",
-    href: "#services",
+    href: "/services",
     dropdown: [
-      { label: "일반 진료", href: "/reservation?service=general" },
-      { label: "임플란트", href: "/reservation?service=implant" },
-      { label: "사랑니 발치", href: "/reservation?service=wisdom" },
-      { label: "스케일링", href: "/reservation?service=scaling" },
-      { label: "교정", href: "/reservation?service=ortho" },
+      { label: "일반 진료", href: "/services/general" },
+      { label: "임플란트", href: "/services/implant" },
+      { label: "사랑니 발치", href: "/services/wisdom" },
+      { label: "스케일링", href: "/services/scaling" },
+      { label: "교정", href: "/services/ortho" },
     ],
   },
   {

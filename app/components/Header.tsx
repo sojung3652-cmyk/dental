@@ -34,8 +34,8 @@ export default function Header() {
             {NAV_ITEMS.map((item) =>
               item.dropdown ? (
                 <div key={item.label} className="relative group nav-link py-2">
-                  <button
-                    type="button"
+                  <Link
+                    href={item.href}
                     className="flex items-center gap-1 hover:text-brand-primary-dark transition-colors"
                   >
                     {item.label}
@@ -44,7 +44,7 @@ export default function Header() {
                       strokeWidth={1.8}
                       className="transition-transform group-hover:rotate-180"
                     />
-                  </button>
+                  </Link>
                   <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-2xl shadow-lg border border-slate-100 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
                     {item.dropdown.map((sub) => (
                       <a
