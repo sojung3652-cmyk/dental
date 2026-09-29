@@ -1,5 +1,4 @@
-import PhoneCtaButton from "./PhoneCtaButton";
-import CtaAltChannelsRow from "./CtaAltChannelsRow";
+import CtaButtonGroup from "./CtaButtonGroup";
 
 export default function ReservationCta() {
   return (
@@ -18,18 +17,7 @@ export default function ReservationCta() {
             정기 검진, 사랑니, 스케일링, 임플란트, 교정 등 필요한 진료를 온라인으로 예약하실 수
             있습니다.
           </p>
-          <div className="flex flex-wrap gap-4">
-            <a
-              href="/reservation"
-              className="inline-flex items-center bg-white hover:bg-slate-100 text-brand-primary-dark px-8 py-4 rounded-lg font-medium transition-colors"
-            >
-              예약 페이지로
-            </a>
-            <PhoneCtaButton className="inline-flex items-center border border-slate-500 hover:border-white text-white px-8 py-4 rounded-lg font-medium transition-colors">
-              전화 상담
-            </PhoneCtaButton>
-          </div>
-          <CtaAltChannelsRow />
+          <CtaButtonGroup reservationLabel="예약 페이지로" />
         </div>
       </div>
     </section>

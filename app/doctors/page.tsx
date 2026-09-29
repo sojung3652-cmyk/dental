@@ -3,7 +3,7 @@ import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import DoctorsFilter from "../components/DoctorsFilter";
-import CtaAltChannelsRow from "../components/CtaAltChannelsRow";
+import CtaButtonGroup from "../components/CtaButtonGroup";
 import { doctors } from "@/data/doctors";
 import { CLINIC } from "@/data/clinic";
 
@@ -86,13 +86,7 @@ export default function DoctorsPage() {
               <p className="body-relaxed text-slate-300 mb-10 md:text-lg">
                 진료 유형과 담당 선생님을 선택하고 원하시는 시간을 정하세요.
               </p>
-              <Link
-                href="/reservation"
-                className="inline-flex items-center bg-white hover:bg-slate-100 text-brand-primary-dark px-8 py-4 rounded-lg font-medium transition-colors"
-              >
-                예약하기
-              </Link>
-              <CtaAltChannelsRow />
+              <CtaButtonGroup />
             </div>
           </div>
         </div>

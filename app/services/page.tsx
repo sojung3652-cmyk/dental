@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import PhoneCtaButton from "../components/PhoneCtaButton";
-import CtaAltChannelsRow from "../components/CtaAltChannelsRow";
+import CtaButtonGroup from "../components/CtaButtonGroup";
 import { SERVICES } from "@/data/services";
 
 export const metadata: Metadata = {
@@ -63,18 +62,7 @@ export default function ServicesPage() {
               <p className="body-relaxed text-slate-300 mb-10 md:text-lg">
                 온라인으로 진료 유형과 담당 선생님을 선택하실 수 있습니다.
               </p>
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  href="/reservation"
-                  className="inline-flex items-center bg-white hover:bg-slate-100 text-brand-primary-dark px-8 py-4 rounded-lg font-medium transition-colors"
-                >
-                  예약하기
-                </Link>
-                <PhoneCtaButton className="inline-flex items-center border border-slate-500 hover:border-white text-white px-8 py-4 rounded-lg font-medium transition-colors">
-                  전화 상담
-                </PhoneCtaButton>
-              </div>
-              <CtaAltChannelsRow />
+              <CtaButtonGroup />
             </div>
           </div>
         </div>

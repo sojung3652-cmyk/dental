@@ -6,7 +6,7 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import DoctorPortrait from "../../components/DoctorPortrait";
 import PhoneCtaButton from "../../components/PhoneCtaButton";
-import CtaAltChannelsRow from "../../components/CtaAltChannelsRow";
+import CtaButtonGroup from "../../components/CtaButtonGroup";
 import { SERVICES } from "@/data/services";
 import { doctors } from "@/data/doctors";
 import { PROCESS_STEPS } from "@/data/process";
@@ -241,13 +241,10 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               <p className="body-relaxed text-slate-300 mb-10 md:text-lg">
                 {service.title} 진료를 담당하는 선생님과 직접 상담하실 수 있습니다.
               </p>
-              <Link
-                href={`/reservation?service=${service.slug}`}
-                className="inline-flex items-center bg-white hover:bg-slate-100 text-brand-primary-dark px-8 py-4 rounded-lg font-medium transition-colors"
-              >
-                {service.title} 예약하기
-              </Link>
-              <CtaAltChannelsRow />
+              <CtaButtonGroup
+                reservationHref={`/reservation?service=${service.slug}`}
+                reservationLabel={`${service.title} 예약하기`}
+              />
             </div>
           </div>
         </div>
