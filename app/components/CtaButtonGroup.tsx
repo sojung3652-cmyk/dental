@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, Phone } from "lucide-react";
 import PhoneCtaButton from "./PhoneCtaButton";
 import { useComingSoonModal } from "../context/ComingSoonModalContext";
 
 const ALT_BUTTON_CLASS =
-  "inline-flex items-center gap-2 px-4 py-3 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm font-medium border border-white/20 transition-colors";
+  "inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 text-white px-5 py-4 rounded-lg font-medium text-sm transition-colors";
 
 export default function CtaButtonGroup({
   reservationHref = "/reservation",
@@ -18,14 +18,15 @@ export default function CtaButtonGroup({
   const { show } = useComingSoonModal();
 
   return (
-    <div className="flex flex-wrap items-center gap-3">
+    <div className="mt-10 flex flex-wrap gap-3 justify-center">
       <Link
         href={reservationHref}
-        className="inline-flex items-center bg-white hover:bg-slate-100 text-brand-primary-dark px-8 py-4 rounded-lg font-medium transition-colors"
+        className="inline-flex items-center bg-white hover:bg-slate-100 text-brand-primary-dark px-8 py-4 rounded-lg font-semibold transition-colors"
       >
         {reservationLabel}
       </Link>
-      <PhoneCtaButton className="inline-flex items-center border border-slate-500 hover:border-white text-white px-8 py-4 rounded-lg font-medium transition-colors">
+      <PhoneCtaButton className="inline-flex items-center gap-2 border border-white/40 hover:border-white text-white px-6 py-4 rounded-lg font-medium transition-colors">
+        <Phone size={16} strokeWidth={1.8} />
         전화 상담
       </PhoneCtaButton>
       <button
