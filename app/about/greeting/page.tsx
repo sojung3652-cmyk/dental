@@ -4,6 +4,8 @@ import Link from "next/link";
 import { HeartHandshake, UserRound, Sparkles } from "lucide-react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import PhoneCtaButton from "../../components/PhoneCtaButton";
+import CtaAltChannelsRow from "../../components/CtaAltChannelsRow";
 import { CLINIC } from "@/data/clinic";
 import { doctors } from "@/data/doctors";
 
@@ -136,6 +138,35 @@ export default function GreetingPage() {
               ))}
             </div>
           </section>
+        </div>
+
+        {/* CTA band */}
+        <div className="max-w-4xl mx-auto px-4 md:px-8 mt-20 pb-16 md:pb-20">
+          <div className="bg-brand-primary-dark rounded-3xl px-8 md:px-16 py-16 md:py-24 relative overflow-hidden">
+            <div className="absolute -top-16 -right-16 w-56 h-56 rounded-full bg-brand-accent/20" />
+            <div className="absolute -bottom-20 -left-16 w-56 h-56 rounded-full bg-brand-accent/10" />
+            <div className="relative max-w-2xl">
+              <p className="text-sm font-medium text-brand-accent mb-3">예약 안내</p>
+              <h2 className="text-3xl md:text-4xl font-light text-white mb-6">
+                지금 편안한 마음으로 <span className="font-semibold">예약하세요</span>.
+              </h2>
+              <p className="body-relaxed text-slate-300 mb-10 md:text-lg">
+                온라인으로 원하시는 시간과 담당 선생님을 미리 정하실 수 있습니다.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Link
+                  href="/reservation"
+                  className="inline-flex items-center bg-white hover:bg-slate-100 text-brand-primary-dark px-8 py-4 rounded-lg font-medium transition-colors"
+                >
+                  예약하기
+                </Link>
+                <PhoneCtaButton className="inline-flex items-center border border-slate-500 hover:border-white text-white px-8 py-4 rounded-lg font-medium transition-colors">
+                  전화 상담
+                </PhoneCtaButton>
+              </div>
+              <CtaAltChannelsRow />
+            </div>
+          </div>
         </div>
       </main>
       <Footer />

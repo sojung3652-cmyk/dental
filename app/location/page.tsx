@@ -15,6 +15,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import AddressCopyButton from "../components/AddressCopyButton";
 import PhoneCtaButton from "../components/PhoneCtaButton";
+import CtaAltChannelsRow from "../components/CtaAltChannelsRow";
 import { CLINIC } from "@/data/clinic";
 import { TRANSIT } from "@/data/location";
 
@@ -337,6 +338,7 @@ export default function LocationPage() {
                   전화 상담
                 </PhoneCtaButton>
               </div>
+              <CtaAltChannelsRow />
             </div>
           </div>
         </div>

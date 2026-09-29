@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import DoctorsFilter from "../components/DoctorsFilter";
+import CtaAltChannelsRow from "../components/CtaAltChannelsRow";
 import { doctors } from "@/data/doctors";
 import { CLINIC } from "@/data/clinic";
 
@@ -91,6 +92,7 @@ export default function DoctorsPage() {
               >
                 예약하기
               </Link>
+              <CtaAltChannelsRow />
             </div>
           </div>
         </div>

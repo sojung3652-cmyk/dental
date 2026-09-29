@@ -5,12 +5,12 @@ import Link from "next/link";
 import { Phone, CalendarCheck, MessageCircle } from "lucide-react";
 import Modal from "./Modal";
 import ChatPickerPopup from "./ChatPickerPopup";
-import ComingSoonPopup from "./ComingSoonPopup";
 import { usePhoneModal } from "../context/PhoneModalContext";
+import { useComingSoonModal } from "../context/ComingSoonModalContext";
 
 export type ChatChannel = "kakao" | "1on1" | "ai";
 
-type ModalState = "none" | "chatPicker" | "comingSoon";
+type ModalState = "none" | "chatPicker";
 
 const COMING_SOON_MESSAGE: Record<ChatChannel, string> = {
   kakao: "카카오톡 채널을 준비하고 있습니다.\n곧 만나요.",
@@ -20,14 +20,14 @@ const COMING_SOON_MESSAGE: Record<ChatChannel, string> = {
 
 export default function FloatingIcons() {
   const { open: openPhoneModal } = usePhoneModal();
+  const { show: showComingSoon } = useComingSoonModal();
   const [modal, setModal] = useState<ModalState>("none");
-  const [channel, setChannel] = useState<ChatChannel | null>(null);
 
   const chatBtnRef = useRef<HTMLButtonElement>(null);
 
   function handleSelectChannel(selected: ChatChannel) {
-    setChannel(selected);
-    setModal("comingSoon");
+    setModal("none");
+    showComingSoon(COMING_SOON_MESSAGE[selected]);
   }
 
   return (
@@ -67,18 +67,6 @@ export default function FloatingIcons() {
       {modal === "chatPicker" && (
         <Modal onClose={() => setModal("none")} titleId="chat-picker-title" returnFocusRef={chatBtnRef}>
           {() => <ChatPickerPopup titleId="chat-picker-title" onSelect={handleSelectChannel} />}
-        </Modal>
-      )}
-
-      {modal === "comingSoon" && channel && (
-        <Modal onClose={() => setModal("none")} titleId="coming-soon-title" returnFocusRef={chatBtnRef}>
-          {(requestClose) => (
-            <ComingSoonPopup
-              titleId="coming-soon-title"
-              message={COMING_SOON_MESSAGE[channel]}
-              onConfirm={requestClose}
-            />
-          )}
         </Modal>
       )}
     </>

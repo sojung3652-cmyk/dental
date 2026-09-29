@@ -6,6 +6,7 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import DoctorPortrait from "../../components/DoctorPortrait";
 import PhoneCtaButton from "../../components/PhoneCtaButton";
+import CtaAltChannelsRow from "../../components/CtaAltChannelsRow";
 import { SERVICES } from "@/data/services";
 import { doctors } from "@/data/doctors";
 import { PROCESS_STEPS } from "@/data/process";
@@ -246,6 +247,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               >
                 {service.title} 예약하기
               </Link>
+              <CtaAltChannelsRow />
             </div>
           </div>
         </div>

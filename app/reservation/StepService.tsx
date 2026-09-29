@@ -1,5 +1,6 @@
 import { SERVICES } from "@/data/services";
 import { SERVICE_DOCTOR_MATCH } from "@/data/reservation";
+import ReservationAltChannels from "../components/ReservationAltChannels";
 
 function toEstimatePill(duration: string): string {
   return `약 ${duration.replace("정도", "").trim()}`;
@@ -23,6 +24,8 @@ export default function StepService({
 
   return (
     <div>
+      <ReservationAltChannels />
+
       <p className="text-sm text-brand-text-muted mb-2 text-center">1단계 · 진료 유형</p>
       <h1 className="headline-tight text-3xl md:text-4xl font-light text-brand-text text-center mb-12">
         어떤 진료가 <span className="font-semibold">필요하신가요</span>?

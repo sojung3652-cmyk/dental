@@ -1,4 +1,5 @@
 import PhoneCtaButton from "./PhoneCtaButton";
+import CtaAltChannelsRow from "./CtaAltChannelsRow";
 
 export default function ReservationCta() {
   return (
@@ -28,6 +29,7 @@ export default function ReservationCta() {
               전화 상담
             </PhoneCtaButton>
           </div>
+          <CtaAltChannelsRow />
         </div>
       </div>
     </section>
