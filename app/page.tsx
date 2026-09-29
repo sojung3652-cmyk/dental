@@ -1,7 +1,6 @@
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Philosophy from "./components/Philosophy";
-import Concerns from "./components/Concerns";
 import Doctors from "./components/Doctors";
 import Services from "./components/Services";
 import Process from "./components/Process";
@@ -19,7 +18,6 @@ export default function Home() {
       <main id="main" tabIndex={-1} className="focus:outline-none">
         <Hero />
         <Philosophy />
-        <Concerns />
         <Doctors />
         <Services />
         <Process />

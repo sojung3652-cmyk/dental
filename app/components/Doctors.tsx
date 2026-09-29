@@ -4,7 +4,7 @@ import DoctorsGrid from "./DoctorsGrid";
 
 export default function Doctors() {
   return (
-    <section id="doctors" className="bg-brand-sub-surface py-24 md:py-28">
+    <section id="doctors" className="bg-brand-sub-surface pt-12 md:pt-14 pb-24 md:pb-28">
       <div className="max-w-6xl mx-auto px-4 md:px-8">
         <div className="mb-14 md:mb-16 grid md:grid-cols-12 gap-6 items-end">
           <div className="md:col-span-6">
