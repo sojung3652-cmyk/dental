@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Nanum_Pen_Script } from "next/font/google";
 import { CLINIC } from "@/data/clinic";
+import { PhoneModalProvider } from "./context/PhoneModalContext";
 import "./globals.css";
 
 const nanumPenScript = Nanum_Pen_Script({
@@ -55,7 +56,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           메인 콘텐츠로 건너뛰기
         </a>
-        {children}
+        <PhoneModalProvider>{children}</PhoneModalProvider>
       </body>
     </html>
   );

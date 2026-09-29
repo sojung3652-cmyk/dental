@@ -1,4 +1,4 @@
-import { CLINIC } from "@/data/clinic";
+import PhoneCtaButton from "./PhoneCtaButton";
 
 export default function ReservationCta() {
   return (
@@ -24,12 +24,9 @@ export default function ReservationCta() {
             >
               예약 페이지로
             </a>
-            <a
-              href={`tel:${CLINIC.phone}`}
-              className="inline-flex items-center border border-slate-500 hover:border-white text-white px-8 py-4 rounded-lg font-medium transition-colors"
-            >
+            <PhoneCtaButton className="inline-flex items-center border border-slate-500 hover:border-white text-white px-8 py-4 rounded-lg font-medium transition-colors">
               전화 상담
-            </a>
+            </PhoneCtaButton>
           </div>
         </div>
       </div>

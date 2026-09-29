@@ -5,6 +5,7 @@ import { Check, ChevronDown, Phone } from "lucide-react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import DoctorPortrait from "../../components/DoctorPortrait";
+import PhoneCtaButton from "../../components/PhoneCtaButton";
 import { SERVICES } from "@/data/services";
 import { doctors } from "@/data/doctors";
 import { PROCESS_STEPS } from "@/data/process";
@@ -86,13 +87,10 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                 >
                   예약하기
                 </Link>
-                <a
-                  href={`tel:${CLINIC.phone}`}
-                  className="inline-flex items-center gap-2 text-brand-primary-dark hover:text-brand-text px-4 py-3.5 font-medium"
-                >
+                <PhoneCtaButton className="inline-flex items-center gap-2 text-brand-primary-dark hover:text-brand-text px-4 py-3.5 font-medium">
                   <Phone size={18} strokeWidth={1.8} />
                   전화 문의
-                </a>
+                </PhoneCtaButton>
               </div>
             </div>
 

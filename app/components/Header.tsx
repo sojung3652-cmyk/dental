@@ -7,9 +7,16 @@ import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { CLINIC } from "@/data/clinic";
 import { NAV_ITEMS } from "@/data/nav";
 import FloatingIcons from "./FloatingIcons";
+import { usePhoneModal } from "../context/PhoneModalContext";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const { open: openPhoneModal } = usePhoneModal();
+
+  function handleMobilePhoneClick() {
+    setOpen(false);
+    openPhoneModal();
+  }
 
   return (
     <>
@@ -155,13 +162,14 @@ export default function Header() {
           >
             예약하기
           </a>
-          <a
-            href={`tel:${CLINIC.phone}`}
-            className="flex items-center justify-center gap-2 border border-brand-primary text-brand-primary-dark text-center py-4 rounded-lg font-medium"
+          <button
+            type="button"
+            onClick={handleMobilePhoneClick}
+            className="w-full flex items-center justify-center gap-2 border border-brand-primary text-brand-primary-dark text-center py-4 rounded-lg font-medium"
           >
             <Phone size={18} strokeWidth={1.8} />
             전화 걸기
-          </a>
+          </button>
         </div>
       </div>
     </>

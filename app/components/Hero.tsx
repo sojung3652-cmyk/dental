@@ -1,6 +1,7 @@
 import { Phone } from "lucide-react";
 import { CLINIC } from "@/data/clinic";
 import HeroBackground from "./HeroBackground";
+import PhoneCtaButton from "./PhoneCtaButton";
 
 export default function Hero() {
   return (
@@ -26,13 +27,10 @@ export default function Hero() {
               >
                 예약하기
               </a>
-              <a
-                href={`tel:${CLINIC.phone}`}
-                className="inline-flex items-center gap-2 text-brand-primary-dark hover:text-brand-text px-4 py-3.5 font-medium"
-              >
+              <PhoneCtaButton className="inline-flex items-center gap-2 text-brand-primary-dark hover:text-brand-text px-4 py-3.5 font-medium">
                 <Phone size={18} strokeWidth={1.8} />
                 전화로 상담
-              </a>
+              </PhoneCtaButton>
             </div>
           </div>
           <div className="md:col-span-4 md:text-right">

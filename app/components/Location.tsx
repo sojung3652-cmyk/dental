@@ -2,6 +2,7 @@ import Image from "next/image";
 import { MapPin, Train, Bus, ParkingSquare, MousePointerClick } from "lucide-react";
 import { CLINIC } from "@/data/clinic";
 import { TRANSIT } from "@/data/location";
+import PhoneCtaButton from "./PhoneCtaButton";
 
 function InfoCard({
   icon: Icon,
@@ -70,12 +71,9 @@ export default function Location() {
                 <p className="font-semibold">{CLINIC.nameKo} · 5층</p>
                 <p className="text-sm text-slate-300 mt-1">{CLINIC.address.line1}</p>
                 <p className="text-sm text-slate-300">{CLINIC.address.line2}</p>
-                <a
-                  href={`tel:${CLINIC.phone}`}
-                  className="inline-block text-lg font-semibold mt-3 hover:text-slate-200 transition-colors"
-                >
+                <PhoneCtaButton className="inline-block text-lg font-semibold mt-3 hover:text-slate-200 transition-colors">
                   {CLINIC.phone}
-                </a>
+                </PhoneCtaButton>
                 <p className="text-xs text-slate-300 mt-3">
                   {CLINIC.hours.weekday} · {CLINIC.hours.saturday}
                 </p>

@@ -14,6 +14,7 @@ import {
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import AddressCopyButton from "../components/AddressCopyButton";
+import PhoneCtaButton from "../components/PhoneCtaButton";
 import { CLINIC } from "@/data/clinic";
 import { TRANSIT } from "@/data/location";
 
@@ -89,9 +90,9 @@ export default function LocationPage() {
             <MapPin size={20} strokeWidth={1.8} className="text-brand-accent shrink-0" />
             <p className="font-medium">{FULL_ADDRESS}</p>
             <span className="w-px h-6 bg-white/30 shrink-0" />
-            <a href={`tel:${CLINIC.phone}`} className="hover:text-slate-200 transition-colors">
+            <PhoneCtaButton className="hover:text-slate-200 transition-colors">
               {CLINIC.phone}
-            </a>
+            </PhoneCtaButton>
             <AddressCopyButton address={FULL_ADDRESS} />
           </div>
 
@@ -301,12 +302,9 @@ export default function LocationPage() {
               </div>
               <div>
                 <h2 className="text-sm font-semibold text-brand-primary-dark mb-4">방문 전 문의</h2>
-                <a
-                  href={`tel:${CLINIC.phone}`}
-                  className="text-2xl font-semibold text-brand-primary-dark hover:text-brand-text transition-colors"
-                >
+                <PhoneCtaButton className="text-2xl font-semibold text-brand-primary-dark hover:text-brand-text transition-colors">
                   {CLINIC.phone}
-                </a>
+                </PhoneCtaButton>
                 <p className="text-sm text-brand-text-sub mt-2">
                   방문 전 전화로 미리 문의하시면 대기 시간을 줄이실 수 있습니다.
                 </p>
@@ -335,12 +333,9 @@ export default function LocationPage() {
                 >
                   예약하기
                 </Link>
-                <a
-                  href={`tel:${CLINIC.phone}`}
-                  className="inline-flex items-center border border-slate-500 hover:border-white text-white px-8 py-4 rounded-lg font-medium transition-colors"
-                >
+                <PhoneCtaButton className="inline-flex items-center border border-slate-500 hover:border-white text-white px-8 py-4 rounded-lg font-medium transition-colors">
                   전화 상담
-                </a>
+                </PhoneCtaButton>
               </div>
             </div>
           </div>
